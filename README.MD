@@ -12,7 +12,7 @@ it's an older language, and one of the Most popular.
 
 ## How can I play BLOKOS? ##
 There will be Two methods!
-- Downloading from the Releases Page
+- [Downloading from the Releases Page](https://github.com/Maddox-Werts/Blokos/releases)
 - [Compiling it yourself](#compiling)
 
 ## Will this recieve Updates? ##

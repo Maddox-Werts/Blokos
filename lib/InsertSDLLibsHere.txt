@@ -1,0 +1,2 @@
+Just toss the downloaded SDL Library ( MINGW i686 ) in this folder 
+(Blokos/inc)

@@ -1,0 +1,6 @@
+bin/*
+**/inc/*
+**/lib/*
+!inc/InsertSDLIncludesHere.txt
+!lib/InsertSDLLibsHere.txt
+!bin/README.MD

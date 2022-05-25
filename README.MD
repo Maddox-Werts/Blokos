@@ -29,7 +29,7 @@ such as SDL2. You'll need to download those from the
 
 First, Use these commands to Clone, CD and Make the project
 ```bash
-git clone [[INSERT URL HERE]](https://github.com/Maddox-Werts/Blokos.git)
+git clone https://github.com/Maddox-Werts/Blokos.git
 cd Blokos
 make
 ./bin/blokos

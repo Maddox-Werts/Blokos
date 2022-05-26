@@ -26,12 +26,13 @@ Possibly, I may port this to
 ## If I'm programming for BLOKOS, What references can I have? ##
 I HIGHLY recommend using this resource to help you
 - [Tetris, Tetrimino Guide](https://tetris.fandom.com/wiki/Tetromino)
+
 And, for some good old inspiration! 
 - [Tetris, Free Online](https://bit.ly/3z0jaOl)
 
 # Compiling #
 You'll just need a few things. I'm not including ANY libraries
-such as SDL2. You'll need to download those from the
+such as __SDL2__. You'll need to download those from the
 [DOWNLOADS](#downloads) section.
 
 First, Use these commands to Clone, CD and Make the project
@@ -39,10 +40,12 @@ First, Use these commands to Clone, CD and Make the project
 git clone https://github.com/Maddox-Werts/Blokos.git
 cd Blokos
 make
-./bin/blokos
 ```
 
 And that's it! Make sure you have the said libraries though!
+Insinde my **MAKEFILE** I have it so that it automatically
+launches the binaries. HOWEVER, If you're on windows, you will
+manually need to insert the SDL2.dll file.
 
 # Downloads #
 ### TOOLS ###

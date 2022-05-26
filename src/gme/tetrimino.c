@@ -19,6 +19,7 @@
     Also no, I'm not going to use TYPEDEF for my structures.
     I do NOT know how to use those haha
 */
+// ----DRAWING
 // ----PHYSICS
 void px_TFALL(struct PX_Tetrimino* tetrimino){
     if(tetrimino->ft > 4){
@@ -29,39 +30,9 @@ void px_TFALL(struct PX_Tetrimino* tetrimino){
         tetrimino->ft += FTIME;
     }
 }
-void px_TBORDER(struct PX_Tetrimino* tetrimino){
-    if(tetrimino->y >= GRIDY - 1){
+void px_TBORDER(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene){
+    if(tetrimino->y >= GRIDY - 2){
         tetrimino->still = true;
-    }
-}
-void px_TCHECKOTHER(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene){
-    // This is so that we're able to detect if we're colliding with another block
-    // Only the top part will be detected now
-    int width;
-
-    // Getting the width of the piece
-    switch(tetrimino->type){
-    case 0:
-        width = 4;      break;
-    case 1:
-    case 2:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-        width = 3;      break;
-    case 3:
-        width = 2;      break;
-    }
-
-    // Go through each column
-    for(int c = 0; c < width; c++){
-        // What's below us?
-        int tilebelow = px_SceneGet(scene, tetrimino->x + c, tetrimino->y + 1);
-
-        if(tilebelow != 0 && tilebelow != tetrimino->type + 1){
-            tetrimino->still = true;
-        }
     }
 }
 void px_TDRAW(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene, int x, int y, int spriteval){
@@ -71,8 +42,6 @@ void px_TDRAW(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene, int x, int
 
     // How wide?
     switch(tetrimino->type){
-    case 0:
-        width = 4;      break;
     case 1:
     case 2:
     case 4:
@@ -89,12 +58,47 @@ void px_TDRAW(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene, int x, int
 
     if( cellv == 0
     ||  cellv == tetdrawtype){
-        px_ScenePlot(scene, x + tetrimino->x, y + tetrimino->y, spriteval * tetdrawtype);
+        // Are we still?
+        if(tetrimino->still){
+            px_ScenePlot(scene, x + tetrimino->x, y + tetrimino->y, spriteval * -1);
+        }
+        else{
+            px_ScenePlot(scene, x + tetrimino->x, y + tetrimino->y, spriteval * tetdrawtype);
+        }
     }
 
     // Clearing cells above
     for(int c = 0; c < width; c++){
         px_ScenePlot(scene, c + tetrimino->x, tetrimino->y - 1, 0);
+    }
+}
+void px_TCHECKOTHER(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene){
+    // This is so that we're able to detect if we're colliding with another block
+    // Only the top part will be detected now
+    int width;
+    int offset;
+
+    // Getting the width of the piece
+    switch(tetrimino->type){
+    case 1:
+    case 2:
+    case 5:
+        width = 3; offset = 0;      break;
+    case 6:
+        width = 2; offset = 1;      break;
+    case 4:
+    case 3:
+        width = 2; offset = 0;      break;
+    }
+
+    // Go through each column
+    for(int c = 0; c < width; c++){
+        // What's below us?
+        int tilebelow = px_SceneGet(scene, tetrimino->x + c + offset, tetrimino->y + 2);
+
+        if(tilebelow != 0 && tilebelow != tetrimino->type + 1){
+            tetrimino->still = true;
+        }
     }
 }
 void px_TPRESERVE(struct PX_Tetrimino* tetrimino){
@@ -113,7 +117,7 @@ struct PX_Tetrimino px_TetriminoCreate(){
     tetrimino.ox            = 0;
     tetrimino.oy            = 0;
     tetrimino.ft            = 0;
-    tetrimino.type          = 0;
+    tetrimino.type          = 1;
 
     tetrimino.still         = false;
 
@@ -136,18 +140,14 @@ void px_TetriminoUpdate(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene){
     px_TCHECKOTHER(tetrimino, scene);
 
     // Checks
-    px_TBORDER(tetrimino);
+    px_TBORDER(tetrimino, scene);
 }
 void px_TetriminoDraw(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene){
     // Going through each type
     switch(tetrimino->type){
     // The I piece
     case 0:
-        for (int y = 0; y < 4; y ++){
-            for (int x = 0; x < 4; x ++){
-                px_TDRAW(tetrimino, scene, x,y, te_I[y*4+x]);
-            }
-        }
+        // The I Piece is causing big bugs, DELETED :(
         break;
 
     // The J piece
@@ -215,8 +215,6 @@ void px_TetriminoMove(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene, in
 
     // What's your type?
     switch(tetrimino->type){
-    case 0:
-        width = 4;         break;
     case 1:
     case 2:
     case 4:

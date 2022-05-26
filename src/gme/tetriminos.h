@@ -18,7 +18,6 @@
 
 */
 
-int te_I[16];
 int te_J[16];
 int te_L[16];
 int te_O[16];

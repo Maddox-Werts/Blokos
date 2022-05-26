@@ -57,11 +57,12 @@ void blk_GameUpdate(){
         */
         
         // This part of the code will spawn in a NEW block and keep the old one!
+        px_TetriminoDraw(&tetrimino, &scene);
         tetrimino.still = false;
         tetrimino.type += 1;
-        tetrimino.y = 0;
+        tetrimino.y = 1;
 
-        if(tetrimino.type >= 7) {tetrimino.type = 0;}
+        if(tetrimino.type >= 7) {tetrimino.type = 1;}
     }
 
     // Moving the tetrimino

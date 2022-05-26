@@ -48,13 +48,21 @@ int px_SceneGet(struct PX_Scene* scene, int x, int y){
 void px_SceneDraw(struct PX_Scene* scene, SDL_Renderer* renderer){
     // Drawing our scene every x&y coords
     for(int y = 0; y < GRIDY; y++){
+        // For the awesomeness!
+        int cellsfilled = 0;
+
         for(int x = 0; x < GRIDX; x++){
             // Helpers
             bool filled;
 
             // Setting color
             // What type of cell is it?
-            if(scene->matricies[y*GRIDX+x] != 0){
+            if(scene->matricies[y*GRIDX+x] == -1){
+                SDL_SetRenderDrawColor(renderer, 84,85,160, 1);
+                cellsfilled += 1;
+                filled = true;
+            }
+            else if(scene->matricies[y*GRIDX+x] != 0){
                 SDL_SetRenderDrawColor(renderer, 134,135,200, 1);
                 filled = true;
             }
@@ -89,6 +97,49 @@ void px_SceneDraw(struct PX_Scene* scene, SDL_Renderer* renderer){
             // to hold all prior cells
 
             // scene->matricies[y*GRIDX+x] = 0;
+        }
+    
+        // Were all the cells filled?
+        if(cellsfilled >= GRIDX){
+            // Clearing rows
+            for(int cy = y; cy > 0; cy--){
+                for(int x = 0; x < GRIDX; x++){
+                    scene->matricies[cy*GRIDX+x] = scene->matricies[(cy-1)*GRIDX+x];
+                }
+            }
+            
+            /*
+                        // Clear for effect
+                        SDL_SetRenderDrawColor(renderer, 0,0,0, 1);
+                        SDL_RenderClear(renderer);
+
+            */
+
+            // The effect
+            for(int ts = 0; ts < 3; ts++){
+                for(int x = 0; x < GRIDX; x++){
+                    // Effect Color
+                    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 1);
+
+                    // Getting the size difference from window
+                    const int _xgrid = scene->width  / GRIDX;
+                    const int _ygrid = scene->height / GRIDY;
+
+                    // Making the rectangle
+                    SDL_Rect rect;
+
+                    // Placing rect
+                    rect.x = x * _xgrid;
+                    rect.y = y * _ygrid;
+                    rect.w = _xgrid; rect.h = _ygrid;
+
+                    SDL_RenderFillRect(renderer, &rect);
+                    
+                    // Drawing cool things
+                    SDL_RenderPresent(renderer);
+                    SDL_Delay(20);
+                }
+            }
         }
     }
 }

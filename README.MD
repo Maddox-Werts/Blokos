@@ -5,6 +5,7 @@
 This is a simple Computer Science project I'll be working on
 for the following 5 days as instructed. This project is using
 the C language, so code will make more sense in this.
+Also, To pronounce it, it's BLOCK * OU * SS
 
 ## Why not C++? ##
 I wanted to challange myself, I'm going to use C because 
@@ -22,6 +23,12 @@ Possibly, I may port this to
 - Xbox ( Original ) with the open source XDK from the community.
 - Android/iOS with some SDK's here and there.
 
+## If I'm programming for BLOKOS, What references can I have? ##
+I HIGHLY recommend using this resource to help you
+- [Tetris, Tetrimino Guide](https://tetris.fandom.com/wiki/Tetromino)
+And, for some good old inspiration! 
+- [Tetris, Free Online](https://bit.ly/3z0jaOl)
+
 # Compiling #
 You'll just need a few things. I'm not including ANY libraries
 such as SDL2. You'll need to download those from the
@@ -38,7 +45,9 @@ make
 And that's it! Make sure you have the said libraries though!
 
 # Downloads #
+### TOOLS ###
 [MINGW](https://sourceforge.net/projects/mingw/)
-[SDL2 ( USE MINGW )](http://libsdl.org/download-2.0.php)
+[SDL2](http://libsdl.org/download-2.0.php)
 
+### IDE's ( Up to you ) ###
 [Visual Studio Code](https://code.visualstudio.com/)

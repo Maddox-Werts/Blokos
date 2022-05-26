@@ -26,8 +26,7 @@ Possibly, I may port this to
 ## If I'm programming for BLOKOS, What references can I have? ##
 I HIGHLY recommend using this resource to help you
 - [Tetris, Tetrimino Guide](https://tetris.fandom.com/wiki/Tetromino)
-
-And, for some good old inspiration! 
+- [Tetris, Scoring Guide](https://tetris.wiki/Scoring)
 - [Tetris, Free Online](https://bit.ly/3z0jaOl)
 
 # Compiling #

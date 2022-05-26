@@ -28,6 +28,7 @@ PX_Text px_TextCreate(SDL_Renderer* renderer, const char* msg){
 
     // Assigning stuff
     holdtext.font = font;
+    holdtext.surface = surf;
     holdtext.texture = text;
 }
 void px_TextDraw(SDL_Renderer* renderer, PX_Text text, int x, int y, int w, int h){

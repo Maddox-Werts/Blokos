@@ -10,14 +10,18 @@
 // --HEADERS
 #include "../gme/scene.h"
 #include "../gme/tetrimino.h"
+#include "../app/text.h"
 
 // Scene Variables
 PX_Tetrimino tetrimino;
 PX_Scene scene;
 bool didpress;
 
+// Scene labels and stuff
+PX_Text scorelabel;
+
 // Functions
-void blk_GameStart();
+void blk_GameStart(SDL_Renderer* renderer);
 void blk_GameUpdate();
 void blk_GameDraw(SDL_Renderer* renderer);
 

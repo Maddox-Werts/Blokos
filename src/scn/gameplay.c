@@ -36,10 +36,11 @@ void game_MoveTetrimino(){
 }
 
 // --HEADER
-void blk_GameStart(){
+void blk_GameStart(SDL_Renderer* renderer){
     // Making a scene
     scene = px_SceneCreate(300, 512);
     tetrimino = px_TetriminoCreate();
+    scorelabel = px_TextCreate(renderer, "SCORE: ");
 }
 void blk_GameUpdate(){
     px_TetriminoUpdate(&tetrimino, &scene);
@@ -69,6 +70,10 @@ void blk_GameUpdate(){
     game_MoveTetrimino();
 }
 void blk_GameDraw(SDL_Renderer* renderer){
+    // World drawing and Scene drawing
     px_TetriminoDraw(&tetrimino, &scene);
     px_SceneDraw(&scene, renderer);
+
+    // Drawing the score
+    px_TextDraw(renderer, scorelabel, 300, 200, 200, 100);
 }

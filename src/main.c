@@ -30,7 +30,7 @@ int main(int argc, char* argv[]){
     SDL_Renderer* renderer = px_RendererCreate(window.window);
 
     // Making the game screen
-    blk_GameStart();
+    blk_GameStart(renderer);
 
     // Game Loop
     while(window.opened){

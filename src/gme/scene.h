@@ -21,7 +21,7 @@
 
 // Structure
 struct PX_Scene{
-    bool matricies[144];
+    int matricies[144];
     int width, height;
 };
 
@@ -29,7 +29,8 @@ struct PX_Scene{
 struct PX_Scene px_SceneCreate(int width, int height);
 void px_SceneDelete(struct PX_Scene* scene);
 
-void px_ScenePlot(struct PX_Scene* scene, int x, int y);
+void px_ScenePlot(struct PX_Scene* scene, int x, int y, int value);
+int px_SceneGet(struct PX_Scene* scene, int x, int y);
 void px_SceneDraw(struct PX_Scene* scene, SDL_Renderer* renderer);
 
 // End definition

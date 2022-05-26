@@ -8,7 +8,7 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # There is NO WARRANTY, to the extent permitted by law.
  
 
-# Make data base, printed on Thu May 26 09:06:50 2022
+# Make data base, printed on Thu May 26 09:23:19 2022
 
 # Variables
  
@@ -42,6 +42,7 @@ MAKE_COMMAND := make
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # environment
+ 
 CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_2616_QCPILAXKPYNKLJCS
 # environment
 FPS_BROWSER_USER_PROFILE_STRING = Default
@@ -64,7 +65,6 @@ LANG = C
 # default
 .LOADED := 
 # environment
- 
 TMP = /home/MADDOX~1/AppData/Local/Temp
 # default
 .INCLUDE_DIRS = /usr/include /usr/include
@@ -81,6 +81,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # automatic
+ 
 *D = $(patsubst %/,%,$(dir $*))
 # environment
 PROGRAMFILES = C:\Program Files
@@ -102,7 +103,6 @@ VSCODE_VERBOSE_LOGGING = true
 VSCODE_PID = 2616
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
- 
 # environment
 DEVKITPPC = /opt/devkitpro/devkitPPC
 # automatic
@@ -118,6 +118,7 @@ MAKE_HOST := x86_64-pc-msys
 # environment
 PROGRAMDATA = C:\ProgramData
 # default
+ 
 SHELL := /bin/sh
 # environment
 HOMEPATH = \Users\Maddox Werts
@@ -144,7 +145,6 @@ MAKEFILES :=
 # environment
 PROMPT = $P$G
 # environment
- 
 LOGONSERVER = \\DESKTOP-6V8QQBO
 # environment
 VSCODE_LOG_NATIVE = false
@@ -157,6 +157,7 @@ COMMONPROGRAMFILES = C:\Program Files\Common Files
 # environment
 PROGRAMW6432 = C:\Program Files
 # environment
+ 
 DEVKITPRO = C:/MinGW/devkitpro
 # environment
 PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
@@ -198,11 +199,11 @@ HOME = /home/Maddox Werts
 COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
 # environment
 ELECTRON_RUN_AS_NODE = 1
- 
 # environment
 TEMP = /home/MADDOX~1/AppData/Local/Temp
 # environment
 VSCODE_IPC_HOOK = \\.\pipe\b48baa42d9657d63a9bb6d05e77100d3-1.67.2-main-sock
+ 
 # environment
 TERM = xterm-256color
 # default
@@ -227,13 +228,13 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 26 Stepping 5, GenuineIntel
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
- 
 
 # Directories
 
-# . (device 1895314288, inode 14918173765779510): 12 files, no impossibilities.
+# . (device 1895314288, inode 14918173765779510): 11 files, no impossibilities.
 
-# 12 files, no impossibilities in 1 directories.
+ 
+# 11 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -243,12 +244,66 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 26 Stepping 5, GenuineIntel
 
 compile:
 #  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 14):
+	gcc -c -I inc src/gme/*.c
+	gcc -c -I inc src/app/*.c
+	gcc -c -I inc src/scn/*.c
+	gcc -c -I inc src/*.c
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-26 09:22:01.1583329
+#  File has been updated.
+#  Successfully updated.
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 23):
+	rm *.o
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+all: CLS compile link clean run
+#  Command line target.
+#  Implicit rule search has been done.
+ 
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+
+run:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 26):
+	./bin/blokos
+
+link:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 20):
+	gcc *.o -L lib $(LIBS) -o bin/blokos
+
+CLS:
+#  Implicit rule search has not been done.
 #  Implicit/static pattern stem: ''
 #  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
-# @ := compile
+# @ := CLS
 # automatic
 # * := 
 # automatic
@@ -258,63 +313,16 @@ compile:
 # automatic
 # % := 
 # automatic
+ 
 # ^ := 
 # automatic
 # ? := 
 # automatic
 # | := 
 # variable set hash-table stats:
- 
 # Load=8/32=25%, Rehash=0, Collisions=1/11=9%
 #  recipe to execute (from 'Makefile', line 11):
-	gcc -c -I inc src/gme/*.c
-	gcc -c -I inc src/app/*.c
-	gcc -c -I inc src/scn/*.c
-	gcc -c -I inc src/*.c
-
-# Not a target:
-Makefile:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-26 09:06:49.1595941
-#  File has been updated.
-#  Successfully updated.
-
-clean:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 20):
-	rm *.o
-
-# Not a target:
-.DEFAULT:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-all: compile link clean run
-#  Command line target.
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
- 
-# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
-
-run:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 23):
-	./bin/blokos
-
-link:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 17):
-	gcc *.o -L lib $(LIBS) -o bin/blokos
+	clear
 
 # Not a target:
 .SUFFIXES:
@@ -323,20 +331,19 @@ link:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=8/1024=1%, Rehash=0, Collisions=0/28=0%
+# Load=9/1024=1%, Rehash=0, Collisions=0/31=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 20 / storage = 133 B / avg = 6 B
-# current buf: size = 8162 B / used = 133 B / count = 20 / avg = 6 B
+# strcache buffers: 1 (0) / strings = 20 / storage = 127 B / avg = 6 B
+# current buf: size = 8162 B / used = 127 B / count = 20 / avg = 6 B
 
-# strcache performance: lookups = 35 / hit rate = 42%
+# strcache performance: lookups = 37 / hit rate = 45%
 # hash-table stats:
- 
-# Load=20/8192=0%, Rehash=0, Collisions=0/35=0%
-# Finished Make data base on Thu May 26 09:06:50 2022
+# Load=20/8192=0%, Rehash=0, Collisions=0/37=0%
+# Finished Make data base on Thu May 26 09:23:19 2022
 
  

@@ -5,7 +5,10 @@
 LIBS = -lsdl2main -lsdl2
 
 # COMPILING
-all: compile link clean run
+all: CLS compile link clean run
+
+CLS:
+	clear
 
 compile:
 	gcc -c -I inc src/gme/*.c

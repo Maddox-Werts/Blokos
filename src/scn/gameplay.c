@@ -15,13 +15,16 @@ void game_MoveTetrimino(){
     if(!didpress){
         if(ks[SDL_SCANCODE_LEFT]){
             // TODO: IMPLEMENT
-            px_TetriminoMove(&tetrimino, -1, 0);
+            px_TetriminoMove(&tetrimino, &scene, -1, 0);
             didpress = true;
         }
         else if(ks[SDL_SCANCODE_RIGHT]){
             // TODO: IMPLEMENT
-            px_TetriminoMove(&tetrimino, +1, 0);
+            px_TetriminoMove(&tetrimino, &scene, +1, 0);
             didpress = true;
+        }
+        else if(ks[SDL_SCANCODE_DOWN]){
+            px_TetriminoMove(&tetrimino, &scene, 0, +1);
         }
         else{
             // No keys, Do nothing!
@@ -39,7 +42,7 @@ void blk_GameStart(){
     tetrimino = px_TetriminoCreate();
 }
 void blk_GameUpdate(){
-    px_TetriminoUpdate(&tetrimino);
+    px_TetriminoUpdate(&tetrimino, &scene);
         if(tetrimino.still){
         /*
                 -- THIS CODE WOULD DO THIS --
@@ -54,7 +57,11 @@ void blk_GameUpdate(){
         */
         
         // This part of the code will spawn in a NEW block and keep the old one!
-        
+        tetrimino.still = false;
+        tetrimino.type += 1;
+        tetrimino.y = 0;
+
+        if(tetrimino.type >= 7) {tetrimino.type = 0;}
     }
 
     // Moving the tetrimino

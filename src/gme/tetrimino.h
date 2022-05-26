@@ -15,6 +15,7 @@
 struct PX_Tetrimino{
     // Variables
     int x,y;
+    int ox,oy;
     int type;
 
     // Cases
@@ -28,9 +29,9 @@ struct PX_Tetrimino{
 struct PX_Tetrimino px_TetriminoCreate();
 void px_TetriminoDelete(struct PX_Tetrimino* tetrimino);
 
-void px_TetriminoUpdate(struct PX_Tetrimino* tetrimino);
+void px_TetriminoUpdate(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene);
 void px_TetriminoDraw(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene);
-void px_TetriminoMove(struct PX_Tetrimino* tetrimino, int x, int y);
+void px_TetriminoMove(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene, int x, int y);
 
 // End definition
 #endif

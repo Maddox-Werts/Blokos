@@ -12,10 +12,6 @@ struct PX_Scene px_SceneCreate(int width, int height){
     // Making the structure
     struct PX_Scene scene = {
         {
-            1,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,
-            0,0,0,0,1,0,0,0,0,
             0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,
@@ -27,7 +23,11 @@ struct PX_Scene px_SceneCreate(int width, int height){
             0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,1,
+            0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,
         },
         width, height
     };
@@ -38,9 +38,12 @@ void px_SceneDelete(struct PX_Scene* scene){
     free(scene);
 }
 
-void px_ScenePlot(struct PX_Scene* scene, int x, int y){
+void px_ScenePlot(struct PX_Scene* scene, int x, int y, int value){
     // Plotting based on thing
-    scene->matricies[y*GRIDX+x] = true;
+    scene->matricies[y*GRIDX+x] = value;
+}
+int px_SceneGet(struct PX_Scene* scene, int x, int y){
+    return scene->matricies[y*GRIDX+x];
 }
 void px_SceneDraw(struct PX_Scene* scene, SDL_Renderer* renderer){
     // Drawing our scene every x&y coords
@@ -51,15 +54,13 @@ void px_SceneDraw(struct PX_Scene* scene, SDL_Renderer* renderer){
 
             // Setting color
             // What type of cell is it?
-            switch (scene->matricies[y*GRIDX+x]){
-            case true:
-                SDL_SetRenderDrawColor(renderer, 255,255,255, 1);
+            if(scene->matricies[y*GRIDX+x] != 0){
+                SDL_SetRenderDrawColor(renderer, 134,135,200, 1);
                 filled = true;
-                break;
-            case false:
+            }
+            else{
                 SDL_SetRenderDrawColor(renderer, 100,100,100, 1);
                 filled = false;
-                break;
             }
 
             // Getting the size difference from window
@@ -83,7 +84,11 @@ void px_SceneDraw(struct PX_Scene* scene, SDL_Renderer* renderer){
             }
 
             // Clear board!
-            scene->matricies[y*GRIDX+x] = false;
+            // -- USELESS CODE!
+            // Making it so that it'll be able
+            // to hold all prior cells
+
+            // scene->matricies[y*GRIDX+x] = 0;
         }
     }
 }

@@ -48,6 +48,8 @@ int main(int argc, char* argv[]){
 
         // Display screen
         px_RendererDisplay(renderer);
+
+        // <ESS>
     }
 
     // Cleanup

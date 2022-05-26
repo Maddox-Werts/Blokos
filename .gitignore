@@ -3,6 +3,7 @@
 bin/*
 **/inc/*
 **/lib/*
+**/.vscode
 !inc/InsertSDLIncludesHere.txt
 !lib/InsertSDLLibsHere.txt
 !bin/README.MD

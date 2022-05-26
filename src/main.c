@@ -17,8 +17,10 @@
 // --HEADERS
 #include "app/window.h"
 #include "app/renderer.h"
-#include "game/scene.h"
-#include "game/tetrimino.h"
+#include "gme/scene.h"
+#include "gme/tetrimino.h"
+// --SCREENS
+#include "scn/gameplay.h"
 
 // Entry Point
 int main(int argc, char* argv[]){
@@ -27,14 +29,8 @@ int main(int argc, char* argv[]){
     struct PX_Window window = px_WindowCreate("BLOKOS", 512, 512);
     SDL_Renderer* renderer = px_RendererCreate(window.window);
 
-    // Making a scene
-    struct PX_Scene scene = px_SceneCreate(300, 512);
-
-    // TESTING OBJECTS
-    struct PX_Tetrimino tetrimino = px_TetriminoCreate();
-
-    // HELPING
-    bool didpress = false;
+    // Making the game screen
+    blk_GameStart();
 
     // Game Loop
     while(window.opened){
@@ -45,49 +41,10 @@ int main(int argc, char* argv[]){
         px_RendererClear(renderer);
 
         // Game code..
-        px_TetriminoUpdate(&tetrimino);
-        if(tetrimino.still){
-            /*
-                -- THIS CODE WOULD DO THIS --
-            It would "delete" the current block,
-            and place it to the top of the screen.
-            ======================================
-            tetrimino.still = false;
-            tetrimino.type += 1;
-            tetrimino.y = 0;
-
-            if(tetrimino.type >= 7) {tetrimino.type = 0;}
-            */
-        
-            // This part of the code will spawn in a NEW block and keep the old one!
-            
-        }
-
-        // Moving the tetrimino
-        const Uint8* ks = SDL_GetKeyboardState(NULL);
-
-        if(!didpress){
-            if(ks[SDL_SCANCODE_LEFT]){
-                // TODO: IMPLEMENT
-                px_TetriminoMove(&tetrimino, -1, 0);
-                didpress = true;
-            }
-            else if(ks[SDL_SCANCODE_RIGHT]){
-                // TODO: IMPLEMENT
-                px_TetriminoMove(&tetrimino, +1, 0);
-                didpress = true;
-            }
-            else{
-                // No keys, Do nothing!
-            }
-        }
-        else if((!ks[SDL_SCANCODE_LEFT]) && (!ks[SDL_SCANCODE_RIGHT])){
-            didpress = false;
-        }
+        blk_GameUpdate();
 
         // Render code
-        px_TetriminoDraw(&tetrimino, &scene);
-        px_SceneDraw(&scene, renderer);
+        blk_GameDraw(renderer);
 
         // Display screen
         px_RendererDisplay(renderer);

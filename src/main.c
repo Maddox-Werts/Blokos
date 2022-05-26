@@ -26,7 +26,7 @@
 int main(int argc, char* argv[]){
     // This is our starting point
     // Creating a window
-    struct PX_Window window = px_WindowCreate("BLOKOS", 512, 512);
+    PX_Window window = px_WindowCreate("BLOKOS", 512, 512);
     SDL_Renderer* renderer = px_RendererCreate(window.window);
 
     // Making the game screen

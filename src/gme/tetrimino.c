@@ -14,14 +14,14 @@
 // --HELPERS
 /*
     Helper Function Format:
-    void px_T[FUNCTION NAME](struct PX_Tetrimino* tetrimino);
+    void px_T[FUNCTION NAME](PX_Tetrimino* tetrimino);
 
     Also no, I'm not going to use TYPEDEF for my structures.
     I do NOT know how to use those haha
 */
 // ----DRAWING
 // ----PHYSICS
-void px_TFALL(struct PX_Tetrimino* tetrimino){
+void px_TFALL(PX_Tetrimino* tetrimino){
     if(tetrimino->ft > 4){
         tetrimino->y += 1;
         tetrimino->ft = 0;
@@ -30,12 +30,12 @@ void px_TFALL(struct PX_Tetrimino* tetrimino){
         tetrimino->ft += FTIME;
     }
 }
-void px_TBORDER(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene){
+void px_TBORDER(PX_Tetrimino* tetrimino, PX_Scene* scene){
     if(tetrimino->y >= GRIDY - 2){
         tetrimino->still = true;
     }
 }
-void px_TDRAW(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene, int x, int y, int spriteval){
+void px_TDRAW(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y, int spriteval){
     // Placeholding someting?
     const int tetdrawtype = tetrimino->type + 1;
     int width;
@@ -72,7 +72,7 @@ void px_TDRAW(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene, int x, int
         px_ScenePlot(scene, c + tetrimino->x, tetrimino->y - 1, 0);
     }
 }
-void px_TCHECKOTHER(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene){
+void px_TCHECKOTHER(PX_Tetrimino* tetrimino, PX_Scene* scene){
     // This is so that we're able to detect if we're colliding with another block
     // Only the top part will be detected now
     int width;
@@ -101,15 +101,15 @@ void px_TCHECKOTHER(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene){
         }
     }
 }
-void px_TPRESERVE(struct PX_Tetrimino* tetrimino){
+void px_TPRESERVE(PX_Tetrimino* tetrimino){
     tetrimino->ox = tetrimino->x;
     tetrimino->oy = tetrimino->y;
 }
 
 // --REGULARS
-struct PX_Tetrimino px_TetriminoCreate(){
+PX_Tetrimino px_TetriminoCreate(){
     // Making stuff
-    struct PX_Tetrimino tetrimino;
+    PX_Tetrimino tetrimino;
 
     // Assigning Variables
     tetrimino.x             = 3;
@@ -124,11 +124,11 @@ struct PX_Tetrimino px_TetriminoCreate(){
     // Giving back tetrimino
     return tetrimino;
 }
-void px_TetriminoDelete(struct PX_Tetrimino* tetrimino){
+void px_TetriminoDelete(PX_Tetrimino* tetrimino){
     free(tetrimino);
 }
 
-void px_TetriminoUpdate(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene){
+void px_TetriminoUpdate(PX_Tetrimino* tetrimino, PX_Scene* scene){
     // Are we static?
     if(tetrimino->still)    {return;}
 
@@ -142,7 +142,7 @@ void px_TetriminoUpdate(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene){
     // Checks
     px_TBORDER(tetrimino, scene);
 }
-void px_TetriminoDraw(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene){
+void px_TetriminoDraw(PX_Tetrimino* tetrimino, PX_Scene* scene){
     // Going through each type
     switch(tetrimino->type){
     // The I piece
@@ -208,7 +208,7 @@ void px_TetriminoDraw(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene){
         break;
     }
 }
-void px_TetriminoMove(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene, int x, int y){
+void px_TetriminoMove(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y){
     // Moving the wanted tetrimino
     // Getting the width
     int width;

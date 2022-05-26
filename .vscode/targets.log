@@ -1,17 +1,17 @@
 make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # GNU Make 4.3
 # Built for x86_64-pc-msys
+ 
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
- 
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
  
 
-# Make data base, printed on Thu May 26 09:23:19 2022
+# Make data base, printed on Thu May 26 12:20:34 2022
 
-# Variables
  
+# Variables
 
 # environment
 FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
@@ -26,13 +26,13 @@ USERPROFILE = C:\Users\Maddox Werts
 # environment
 LOCALAPPDATA = C:\Users\Maddox Werts\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-f69abbd0-7042-40fd-855e-c4b7b0a5523f-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-0d33247a-269f-44ed-aa9f-0020643e396f-sock
 # environment
 VSCODE_CWD = C:\Users\Maddox Werts\AppData\Local\Programs\Microsoft VS Code
 # environment
 SYSTEMROOT = C:\Windows
 # makefile (from 'Makefile', line 5)
-LIBS = -lsdl2main -lsdl2
+LIBS = -lsdl2main -lsdl2_ttf -lsdl2
 # environment
 PROCESSOR_LEVEL = 6
 # environment
@@ -42,8 +42,7 @@ MAKE_COMMAND := make
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # environment
- 
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_2616_QCPILAXKPYNKLJCS
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_18628_UGCBIAVMNXSLQFZC
 # environment
 FPS_BROWSER_USER_PROFILE_STRING = Default
 # environment
@@ -51,6 +50,7 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
 .VARIABLES := 
 # automatic
+ 
 %D = $(patsubst %/,%,$(dir $%))
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
@@ -68,6 +68,7 @@ LANG = C
 TMP = /home/MADDOX~1/AppData/Local/Temp
 # default
 .INCLUDE_DIRS = /usr/include /usr/include
+ 
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -81,7 +82,6 @@ VSCODE_PIPE_LOGGING = true
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # automatic
- 
 *D = $(patsubst %/,%,$(dir $*))
 # environment
 PROGRAMFILES = C:\Program Files
@@ -100,11 +100,12 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 2616
+VSCODE_PID = 18628
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
 DEVKITPPC = /opt/devkitpro/devkitPPC
+ 
 # automatic
 *F = $(notdir $*)
 # automatic
@@ -118,7 +119,6 @@ MAKE_HOST := x86_64-pc-msys
 # environment
 PROGRAMDATA = C:\ProgramData
 # default
- 
 SHELL := /bin/sh
 # environment
 HOMEPATH = \Users\Maddox Werts
@@ -141,6 +141,7 @@ COMPUTERNAME = DESKTOP-6V8QQBO
 # default
 MAKEFILES := 
 # automatic
+ 
 ^F = $(notdir $^)
 # environment
 PROMPT = $P$G
@@ -157,7 +158,6 @@ COMMONPROGRAMFILES = C:\Program Files\Common Files
 # environment
 PROGRAMW6432 = C:\Program Files
 # environment
- 
 DEVKITPRO = C:/MinGW/devkitpro
 # environment
 PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
@@ -182,6 +182,7 @@ PROGRAMFILES(X86) = C:\Program Files (x86)
 # environment
 USERDOMAIN_ROAMINGPROFILE = DESKTOP-6V8QQBO
 # environment
+ 
 NUMBER_OF_PROCESSORS = 8
 # environment
 PUBLIC = C:\Users\Public
@@ -203,7 +204,6 @@ ELECTRON_RUN_AS_NODE = 1
 TEMP = /home/MADDOX~1/AppData/Local/Temp
 # environment
 VSCODE_IPC_HOOK = \\.\pipe\b48baa42d9657d63a9bb6d05e77100d3-1.67.2-main-sock
- 
 # environment
 TERM = xterm-256color
 # default
@@ -233,7 +233,6 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 26 Stepping 5, GenuineIntel
 
 # . (device 1895314288, inode 14918173765779510): 11 files, no impossibilities.
 
- 
 # 11 files, no impossibilities in 1 directories.
 
 # Implicit Rules
@@ -243,6 +242,7 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 26 Stepping 5, GenuineIntel
 # Files
 
 compile:
+ 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -255,7 +255,7 @@ compile:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-26 09:22:01.1583329
+#  Last modified 2022-05-26 12:20:13.9976514
 #  File has been updated.
 #  Successfully updated.
 
@@ -275,9 +275,9 @@ clean:
 all: CLS compile link clean run
 #  Command line target.
 #  Implicit rule search has been done.
- 
 #  File does not exist.
 #  File has been updated.
+ 
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/3=0%
@@ -304,6 +304,7 @@ CLS:
 #  Needs to be updated (-q is set).
 # automatic
 # @ := CLS
+ 
 # automatic
 # * := 
 # automatic
@@ -313,7 +314,6 @@ CLS:
 # automatic
 # % := 
 # automatic
- 
 # ^ := 
 # automatic
 # ? := 
@@ -337,6 +337,7 @@ CLS:
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
+ 
 
 # strcache buffers: 1 (0) / strings = 20 / storage = 127 B / avg = 6 B
 # current buf: size = 8162 B / used = 127 B / count = 20 / avg = 6 B
@@ -344,6 +345,6 @@ CLS:
 # strcache performance: lookups = 37 / hit rate = 45%
 # hash-table stats:
 # Load=20/8192=0%, Rehash=0, Collisions=0/37=0%
-# Finished Make data base on Thu May 26 09:23:19 2022
+# Finished Make data base on Thu May 26 12:20:34 2022
 
  

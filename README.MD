@@ -32,7 +32,7 @@ And, for some good old inspiration!
 
 # Compiling #
 You'll just need a few things. I'm not including ANY libraries
-such as __SDL2__. You'll need to download those from the
+such as __SDL2__, __SDL2 TTF Support__. You'll need to download those from the
 [DOWNLOADS](#downloads) section.
 
 First, Use these commands to Clone, CD and Make the project
@@ -51,6 +51,7 @@ manually need to insert the SDL2.dll file.
 ### TOOLS ###
 [MINGW](https://sourceforge.net/projects/mingw/)
 [SDL2](http://libsdl.org/download-2.0.php)
+[SDL2 TTF](https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.0.18)
 
 ### IDE's ( Up to you ) ###
 [Visual Studio Code](https://code.visualstudio.com/)

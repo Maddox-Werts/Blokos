@@ -12,8 +12,8 @@
 #include "../gme/tetrimino.h"
 
 // Scene Variables
-struct PX_Tetrimino tetrimino;
-struct PX_Scene scene;
+PX_Tetrimino tetrimino;
+PX_Scene scene;
 bool didpress;
 
 // Functions

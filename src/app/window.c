@@ -12,9 +12,9 @@
 */
 
 // Functions
-struct PX_Window px_WindowCreate(const char* title, int width, int height){
+PX_Window px_WindowCreate(const char* title, int width, int height){
     // Making the holding structure
-    struct PX_Window window;
+    PX_Window window;
 
     // Creating a window
     window.window = SDL_CreateWindow(
@@ -37,12 +37,12 @@ struct PX_Window px_WindowCreate(const char* title, int width, int height){
     // Returning Window
     return window;
 }
-void px_WindowDelete(struct PX_Window* window){
+void px_WindowDelete(PX_Window* window){
     SDL_DestroyWindow(window->window);
     free(window);
 }
 
-void px_WindowUpdate(struct PX_Window* window){
+void px_WindowUpdate(PX_Window* window){
     // Making an event holder
     SDL_Event ev;
 

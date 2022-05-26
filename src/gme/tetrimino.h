@@ -12,7 +12,7 @@
 #include "tetrimino.h"
 
 // Structures
-struct PX_Tetrimino{
+typedef struct PX_Tetrimino{
     // Variables
     int x,y;
     int ox,oy;
@@ -23,15 +23,15 @@ struct PX_Tetrimino{
 
     // Timers
     float ft;
-};
+} PX_Tetrimino;
 
 // Functions
-struct PX_Tetrimino px_TetriminoCreate();
-void px_TetriminoDelete(struct PX_Tetrimino* tetrimino);
+PX_Tetrimino px_TetriminoCreate();
+void px_TetriminoDelete(PX_Tetrimino* tetrimino);
 
-void px_TetriminoUpdate(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene);
-void px_TetriminoDraw(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene);
-void px_TetriminoMove(struct PX_Tetrimino* tetrimino, struct PX_Scene* scene, int x, int y);
+void px_TetriminoUpdate(PX_Tetrimino* tetrimino, PX_Scene* scene);
+void px_TetriminoDraw(PX_Tetrimino* tetrimino, PX_Scene* scene);
+void px_TetriminoMove(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y);
 
 // End definition
 #endif

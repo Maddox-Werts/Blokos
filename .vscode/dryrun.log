@@ -1,14 +1,12 @@
-make.exe --dry-run --keep-going --print-directory
+make.exe --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/d/Projects/Blokos'
 clear
- 
 gcc -c -I inc src/gme/*.c
 gcc -c -I inc src/app/*.c
 gcc -c -I inc src/scn/*.c
 gcc -c -I inc src/*.c
-gcc *.o -L lib -lsdl2main -lsdl2 -o bin/blokos
+gcc *.o -L lib -lsdl2main -lsdl2_ttf -lsdl2 -o bin/blokos
 rm *.o
- 
 ./bin/blokos
 make: Leaving directory '/d/Projects/Blokos'
  

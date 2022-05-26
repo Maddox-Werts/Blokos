@@ -2,7 +2,7 @@
 # ALL C FILES INTO BINARIES
 
 # VARIABLES
-LIBS = -lsdl2main -lsdl2
+LIBS = -lsdl2main -lsdl2_ttf -lsdl2
 
 # COMPILING
 all: CLS compile link clean run

@@ -10,17 +10,17 @@
 // --HEADERS
 
 // Structures
-struct PX_Window{
+typedef struct PX_Window{
     SDL_Window* window;
     int width, height;
     bool opened;
-};
+} PX_Window;
 
 // Functions
-struct PX_Window px_WindowCreate(const char* title, int width, int height);
-void px_WindowDelete(struct PX_Window* window);
+PX_Window px_WindowCreate(const char* title, int width, int height);
+void px_WindowDelete(PX_Window* window);
 
-void px_WindowUpdate(struct PX_Window* window);
+void px_WindowUpdate(PX_Window* window);
 
 // End definition
 #endif

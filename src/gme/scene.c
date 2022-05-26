@@ -8,9 +8,9 @@
 #include "scene.h"
 
 // Functions
-struct PX_Scene px_SceneCreate(int width, int height){
+PX_Scene px_SceneCreate(int width, int height){
     // Making the structure
-    struct PX_Scene scene = {
+    PX_Scene scene = {
         {
             0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,
@@ -29,23 +29,24 @@ struct PX_Scene px_SceneCreate(int width, int height){
             0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,
         },
-        width, height
+        width, height,
+        0
     };
 
     return scene;
 }
-void px_SceneDelete(struct PX_Scene* scene){
+void px_SceneDelete(PX_Scene* scene){
     free(scene);
 }
 
-void px_ScenePlot(struct PX_Scene* scene, int x, int y, int value){
+void px_ScenePlot(PX_Scene* scene, int x, int y, int value){
     // Plotting based on thing
     scene->matricies[y*GRIDX+x] = value;
 }
-int px_SceneGet(struct PX_Scene* scene, int x, int y){
+int px_SceneGet(PX_Scene* scene, int x, int y){
     return scene->matricies[y*GRIDX+x];
 }
-void px_SceneDraw(struct PX_Scene* scene, SDL_Renderer* renderer){
+void px_SceneDraw(PX_Scene* scene, SDL_Renderer* renderer){
     // Drawing our scene every x&y coords
     for(int y = 0; y < GRIDY; y++){
         // For the awesomeness!
@@ -101,19 +102,15 @@ void px_SceneDraw(struct PX_Scene* scene, SDL_Renderer* renderer){
     
         // Were all the cells filled?
         if(cellsfilled >= GRIDX){
+            // Points?
+            scene->SCORE += 100;
+
             // Clearing rows
             for(int cy = y; cy > 0; cy--){
                 for(int x = 0; x < GRIDX; x++){
                     scene->matricies[cy*GRIDX+x] = scene->matricies[(cy-1)*GRIDX+x];
                 }
             }
-            
-            /*
-                        // Clear for effect
-                        SDL_SetRenderDrawColor(renderer, 0,0,0, 1);
-                        SDL_RenderClear(renderer);
-
-            */
 
             // The effect
             for(int ts = 0; ts < 3; ts++){
@@ -134,7 +131,7 @@ void px_SceneDraw(struct PX_Scene* scene, SDL_Renderer* renderer){
                     rect.w = _xgrid; rect.h = _ygrid;
 
                     SDL_RenderFillRect(renderer, &rect);
-                    
+
                     // Drawing cool things
                     SDL_RenderPresent(renderer);
                     SDL_Delay(20);

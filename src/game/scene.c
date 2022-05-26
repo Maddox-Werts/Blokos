@@ -46,14 +46,19 @@ void px_SceneDraw(struct PX_Scene* scene, SDL_Renderer* renderer){
     // Drawing our scene every x&y coords
     for(int y = 0; y < GRIDY; y++){
         for(int x = 0; x < GRIDX; x++){
+            // Helpers
+            bool filled;
+
             // Setting color
             // What type of cell is it?
             switch (scene->matricies[y*GRIDX+x]){
             case true:
                 SDL_SetRenderDrawColor(renderer, 255,255,255, 1);
+                filled = true;
                 break;
             case false:
                 SDL_SetRenderDrawColor(renderer, 100,100,100, 1);
+                filled = false;
                 break;
             }
 
@@ -70,7 +75,12 @@ void px_SceneDraw(struct PX_Scene* scene, SDL_Renderer* renderer){
             rect.w = _xgrid; rect.h = _ygrid;
 
             // Drawing rect
-            SDL_RenderDrawRect(renderer, &rect);
+            if(filled){
+                SDL_RenderFillRect(renderer, &rect);
+            }
+            else{
+                SDL_RenderDrawRect(renderer, &rect);
+            }
 
             // Clear board!
             scene->matricies[y*GRIDX+x] = false;

@@ -12,7 +12,7 @@ it's an older language, and one of the Most popular.
 
 ## How can I play BLOKOS? ##
 There will be Two methods!
-- Downloading from the Releases Page
+- [Downloading from the Releases Page](https://github.com/Maddox-Werts/Blokos/releases)
 - [Compiling it yourself](#compiling)
 
 ## Will this recieve Updates? ##
@@ -29,7 +29,7 @@ such as SDL2. You'll need to download those from the
 
 First, Use these commands to Clone, CD and Make the project
 ```bash
-git clone [INSERT URL HERE]
+git clone https://github.com/Maddox-Werts/Blokos.git
 cd Blokos
 make
 ./bin/blokos

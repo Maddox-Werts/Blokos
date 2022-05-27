@@ -3,7 +3,6 @@
 
 # VARIABLES
 LIBS = -lsdl2main -lsdl2_ttf -lsdl2_image -lsdl2
-PLATFORM = APPLE
 
 # COMPILING
 all: CLS compile link install clean run
@@ -18,13 +17,13 @@ compile:
 	gcc -c -I inc src/*.c
 
 link:
-	gcc *.o -L lib $(LIBS) -o bin/$(PLATFORM)/blokos
+	gcc *.o -L lib $(LIBS) -o bin/blokos
 
 install:
-	cp -vr res bin/$(PLATFORM)
+	cp -vr res bin
 
 clean:
 	rm *.o
 
 run:
-	./bin/$(PLATFORM)/blokos
+	./bin/blokos

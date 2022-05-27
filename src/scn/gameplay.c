@@ -46,7 +46,7 @@ void game_MoveTetrimino(){
 // --HEADER
 void blk_GameStart(SDL_Renderer* renderer){
     // Making a scene
-    scene = px_SceneCreate(300, 512);
+    scene = px_SceneCreate(renderer, 300, 512);
     tetrimino = px_TetriminoCreate();
 }
 void blk_GameUpdate(){

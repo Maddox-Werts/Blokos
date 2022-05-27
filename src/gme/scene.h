@@ -6,6 +6,7 @@
 // --SYSTEM
 // --SDL
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 // --HEADERS
 #include "tetriminos.h"
 
@@ -27,8 +28,11 @@ typedef struct PX_Scene{
     int SCORE;
 } PX_Scene;
 
+// Variables
+SDL_Texture* celltex;
+
 // Functions
-PX_Scene px_SceneCreate(int width, int height);
+PX_Scene px_SceneCreate(SDL_Renderer* renderer, int width, int height);
 void px_SceneDelete(PX_Scene* scene);
 
 void px_ScenePlot(PX_Scene* scene, int x, int y, int value);

@@ -4,11 +4,31 @@
 #include <stdbool.h>
 // --SDL
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 // --HEADERS
 #include "scene.h"
 
 // Functions
-PX_Scene px_SceneCreate(int width, int height){
+// --HELPER
+void px_TLOADSPR(SDL_Renderer* renderer){
+    // Holding variables
+    SDL_Surface* cellsurf;
+
+    // If the surface was NOT made?
+    if(!(cellsurf = IMG_Load("res/sprites/cell.png"))){
+        printf("Failed to load Sprite Image!\n");
+    }
+
+    if(!(celltex = SDL_CreateTextureFromSurface(renderer, cellsurf))){
+        printf("Failed to load Texture!\n");
+    }
+
+    // Cleanup
+    SDL_FreeSurface(cellsurf);
+}
+
+// --HEADER
+PX_Scene px_SceneCreate(SDL_Renderer* renderer, int width, int height){
     // Making the structure
     PX_Scene scene = {
         {
@@ -32,6 +52,9 @@ PX_Scene px_SceneCreate(int width, int height){
         width, height,
         0
     };
+
+    // Loading textures
+    px_TLOADSPR(renderer);
 
     return scene;
 }
@@ -87,6 +110,7 @@ void px_SceneDraw(PX_Scene* scene, SDL_Renderer* renderer){
             // Drawing rect
             if(filled){
                 SDL_RenderFillRect(renderer, &rect);
+                SDL_RenderCopy(renderer, celltex, NULL, &rect);
             }
             else{
                 SDL_RenderDrawRect(renderer, &rect);

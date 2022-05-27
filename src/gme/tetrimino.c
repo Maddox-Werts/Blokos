@@ -121,6 +121,8 @@ PX_Tetrimino px_TetriminoCreate(){
 
     tetrimino.still         = false;
 
+    // Loading the texture
+
     // Giving back tetrimino
     return tetrimino;
 }

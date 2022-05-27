@@ -46,6 +46,22 @@ Insinde my **MAKEFILE** I have it so that it automatically
 launches the binaries. HOWEVER, If you're on windows, you will
 manually need to insert the SDL2.dll file.
 
+## IMPORTANT NOTICE FOR COMPILING ##
+you'll need to make some modifications to the __MAKEFILE__,
+As I don't have it set up to check compiling devices.
+If you're compiling on MAC or APPLE devices, On the 
+LIBS Variable, Make it to something like this:
+```makefile
+LIBS = -lsdl2main -lsdl_ttf -lsdl2
+```
+
+Otherwise, On windows, you'll need to make it
+like this
+```makefile
+LIBS = -lsdl2main -lsdl2_ttf -lsdl2
+```
+
+
 # Downloads #
 ### TOOLS ###
 [MINGW](https://sourceforge.net/projects/mingw/)

@@ -51,22 +51,22 @@ you'll need to make some modifications to the __MAKEFILE__,
 As I don't have it set up to check compiling devices.
 If you're compiling on MAC or APPLE devices, On the 
 LIBS Variable, Make it to something like this:
-```makefile
+```Makefile
 LIBS = -lsdl2main -lsdl_ttf -lsdl2
 ```
 
 Otherwise, On windows, you'll need to make it
 like this
-```makefile
+```Makefile
 LIBS = -lsdl2main -lsdl2_ttf -lsdl2
 ```
 
 
 # Downloads #
 ### TOOLS ###
-[MINGW](https://sourceforge.net/projects/mingw/)
-[SDL2](http://libsdl.org/download-2.0.php)
-[SDL2 TTF](https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.0.18)
+- [MINGW](https://sourceforge.net/projects/mingw/)
+- [SDL2](http://libsdl.org/download-2.0.php)
+- [SDL2 TTF](https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.0.18)
 
 ### IDE's ( Up to you ) ###
-[Visual Studio Code](https://code.visualstudio.com/)
+- [Visual Studio Code](https://code.visualstudio.com/)

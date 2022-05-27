@@ -7,9 +7,10 @@
 // --SDL
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 // --HEADERS
 #include "tetriminos.h"
-
+#include "../app/sound.h"
 
 /*
     For this, The scene will be a 
@@ -29,6 +30,7 @@ typedef struct PX_Scene{
 } PX_Scene;
 
 // Variables
+bool gameOver;
 SDL_Texture* celltex;
 
 // Functions

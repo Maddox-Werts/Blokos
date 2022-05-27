@@ -7,9 +7,10 @@
 #include <stdbool.h>
 // --SDL
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 // --HEADERS
 #include "scene.h"
-#include "tetrimino.h"
+#include "../app/sound.h"
 
 // Structures
 typedef struct PX_Tetrimino{

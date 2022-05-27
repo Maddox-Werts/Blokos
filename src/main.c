@@ -54,6 +54,9 @@ int main(int argc, char* argv[]){
     // Screen state
     cscrn = 0; rtt = false;
 
+    // Starting the Sound System
+    px_SoundStart();
+
     // Making the game screen
     blk_GameStart(renderer);
     blk_MMCreate(renderer);

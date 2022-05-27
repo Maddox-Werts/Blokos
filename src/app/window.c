@@ -13,6 +13,10 @@
 
 // Functions
 PX_Window px_WindowCreate(const char* title, int width, int height){
+    // Starting some things
+    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_AUDIO);
+
     // Making the holding structure
     PX_Window window;
 

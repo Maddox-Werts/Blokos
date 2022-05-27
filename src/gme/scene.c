@@ -7,6 +7,7 @@
 #include <SDL2/SDL_image.h>
 // --HEADERS
 #include "scene.h"
+#include "../app/sound.h"
 
 // Functions
 // --HELPER
@@ -52,6 +53,9 @@ PX_Scene px_SceneCreate(SDL_Renderer* renderer, int width, int height){
         width, height,
         0
     };
+
+    // Setting something Important
+    gameOver = false;
 
     // Loading textures
     px_TLOADSPR(renderer);
@@ -128,6 +132,10 @@ void px_SceneDraw(PX_Scene* scene, SDL_Renderer* renderer){
         if(cellsfilled >= GRIDX){
             // Points?
             scene->SCORE += 100;
+
+            // Playing the sound
+            px_SoundSet("res/sounds/clear.wav");
+            px_SoundPlay();
 
             // Clearing rows
             for(int cy = y; cy > 0; cy--){

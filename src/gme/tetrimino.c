@@ -4,8 +4,10 @@
 #include <stdbool.h>
 // --SDL
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 // --HEADERS
 #include "tetrimino.h"
+#include "../app/sound.h"
 #include "../app/dtime.h"
 
 // CONSTANTS
@@ -33,6 +35,11 @@ void px_TFALL(PX_Tetrimino* tetrimino){
 }
 void px_TBORDER(PX_Tetrimino* tetrimino, PX_Scene* scene){
     if(tetrimino->y >= GRIDY - 2){
+        
+        // Playing the sound
+        px_SoundSet("res/sounds/drop.wav");
+        px_SoundPlay();
+
         tetrimino->still = true;
     }
 }
@@ -98,6 +105,11 @@ void px_TCHECKOTHER(PX_Tetrimino* tetrimino, PX_Scene* scene){
         int tilebelow = px_SceneGet(scene, tetrimino->x + c + offset, tetrimino->y + 2);
 
         if(tilebelow != 0 && tilebelow != tetrimino->type + 1){
+
+            // Playing the sound
+            px_SoundSet("res/sounds/drop.wav");
+            px_SoundPlay();
+
             tetrimino->still = true;
         }
     }
@@ -121,8 +133,6 @@ PX_Tetrimino px_TetriminoCreate(){
     tetrimino.type          = 1;
 
     tetrimino.still         = false;
-
-    // Loading the texture
 
     // Giving back tetrimino
     return tetrimino;
@@ -233,6 +243,10 @@ void px_TetriminoMove(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y){
     if((x < 0 && tetrimino->x + x + 1 > 0) || 
     (x > 0 && tetrimino->x + width + x - 1 < GRIDX)){           // Moving Left and Right but, WITH boundries.
         tetrimino->x += x;
+
+        // Playing a sound
+        px_SoundSet("res/sounds/move.wav");
+        px_SoundPlay();
     }
 
     // Clearing cells on the side it was moving away from
@@ -305,6 +319,10 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
 
         // Did we escape?
         if(didDrop){
+            // Playing the sound
+            px_SoundSet("res/sounds/slam.wav");
+            px_SoundPlay();
+
             break;
         }
         // KEEP FALLING!

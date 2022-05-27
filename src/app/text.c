@@ -17,7 +17,7 @@ PX_Text px_TextCreate(SDL_Renderer* renderer, const char* msg){
     TTF_Font* font;;
 
     // Was the font opened?
-    if(!(font = TTF_OpenFont("./res/fonts/mono.ttf", 64))){
+    if(!(font = TTF_OpenFont("res/fonts/mono.ttf", 64))){
         printf("Could not open font!\n");
     }
 

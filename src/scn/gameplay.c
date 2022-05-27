@@ -80,7 +80,4 @@ void blk_GameDraw(SDL_Renderer* renderer){
     // World drawing and Scene drawing
     px_TetriminoDraw(&tetrimino, &scene);
     px_SceneDraw(&scene, renderer);
-
-    // Drawing the score
-    
 }

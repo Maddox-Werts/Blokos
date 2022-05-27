@@ -17,8 +17,6 @@ PX_Tetrimino tetrimino;
 PX_Scene scene;
 bool didpress;
 
-// Scene labels and stuff
-
 // Functions
 void blk_GameStart(SDL_Renderer* renderer);
 void blk_GameUpdate();

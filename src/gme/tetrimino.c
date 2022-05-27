@@ -261,7 +261,7 @@ void px_TetriminoMove(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y){
 void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
     // Dropping the tetrimino
     // These are our helpers
-    bool didDrop;
+    bool didDrop = false;
     int height, width, xoff;
 
     // Whats our height?

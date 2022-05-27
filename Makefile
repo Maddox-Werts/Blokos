@@ -2,7 +2,7 @@
 # ALL C FILES INTO BINARIES
 
 # VARIABLES
-LIBS = -lsdl2main -lsdl_ttf -lsdl2_image -lsdl2
+LIBS = -lsdl2main -lsdl2_ttf -lsdl2_image -lsdl2
 PLATFORM = APPLE
 
 # COMPILING

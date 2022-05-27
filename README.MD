@@ -60,6 +60,7 @@ manually need to insert the dll files if you're on windows.
 - [SDL2](http://libsdl.org/download-2.0.php)
 - [SDL2 TTF](https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.0.18)
 - [SDL2 Image](https://www.libsdl.org/projects/SDL_image)
+- [SDL2 Mixer](http://libsdl.org/projects/SDL_mixer)
 
 ### IDE's ( Up to you ) ###
 - [Visual Studio Code](https://code.visualstudio.com/)

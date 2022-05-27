@@ -21,6 +21,26 @@
 #include "gme/tetrimino.h"
 // --SCREENS
 #include "scn/gameplay.h"
+#include "scn/mainmenu.h"
+
+// Variables
+int cscrn;
+bool rtt;
+
+// Functions
+void switchscrn(){
+    // Getting key state
+    const Uint8* ks = SDL_GetKeyboardState(NULL);
+
+    // If Space is pressed
+    if(ks[SDL_SCANCODE_SPACE]){
+        rtt = true;
+    }
+    else if(!(ks[SDL_SCANCODE_SPACE]) && rtt){
+        cscrn = 1;
+        rtt = false;
+    }
+}
 
 // Entry Point
 int main(int argc, char* argv[]){
@@ -29,8 +49,12 @@ int main(int argc, char* argv[]){
     PX_Window window = px_WindowCreate("BLOKOS", 512, 512);
     SDL_Renderer* renderer = px_RendererCreate(window.window);
 
+    // Screen state
+    cscrn = 0; rtt = false;
+
     // Making the game screen
     blk_GameStart(renderer);
+    blk_MMCreate(renderer);
 
     // Game Loop
     while(window.opened){
@@ -40,12 +64,25 @@ int main(int argc, char* argv[]){
         // Clear screen
         px_RendererClear(renderer);
 
-        // Game code..
-        blk_GameUpdate();
-
-        // Render code
-        blk_GameDraw(renderer);
-
+        // Switching between screens
+        switch(cscrn){
+        case 0:
+            // Game code..
+            blk_MMUpdate();
+            switchscrn();
+            // Render code..
+            blk_MMDraw(renderer);
+            // End screen
+            break;
+        case 1:
+            // Game code..
+            blk_GameUpdate();
+            // Render code..
+            blk_GameDraw(renderer);
+            // End screen
+            break;
+        }
+        
         // Display screen
         px_RendererDisplay(renderer);
     }

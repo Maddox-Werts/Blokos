@@ -18,7 +18,6 @@ PX_Scene scene;
 bool didpress;
 
 // Scene labels and stuff
-PX_Text scorelabel;
 
 // Functions
 void blk_GameStart(SDL_Renderer* renderer);

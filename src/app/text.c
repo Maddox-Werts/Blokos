@@ -14,10 +14,10 @@ PX_Text px_TextCreate(SDL_Renderer* renderer, const char* msg){
     PX_Text holdtext;
 
     // Getting and Creating a font
-    TTF_Font* font = TTF_OpenFont("res/fonts/mono.ttf", 32);
+    TTF_Font* font;;
 
     // Was the font opened?
-    if(font == NULL){
+    if(!(font = TTF_OpenFont("./res/fonts/mono.ttf", 64))){
         printf("Could not open font!\n");
     }
 

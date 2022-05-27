@@ -24,13 +24,21 @@ void game_MoveTetrimino(){
             didpress = true;
         }
         else if(ks[SDL_SCANCODE_DOWN]){
-            px_TetriminoMove(&tetrimino, &scene, 0, +1);
+            didpress = true;
+            px_TetriminoMove(&tetrimino, &scene, 0, +2);
+        }
+        else if(ks[SDL_SCANCODE_SPACE]){
+            didpress = true;
+            px_TetriminoDrop(&tetrimino, &scene);
         }
         else{
             // No keys, Do nothing!
         }
     }
-    else if((!ks[SDL_SCANCODE_LEFT]) && (!ks[SDL_SCANCODE_RIGHT])){
+    else if((!ks[SDL_SCANCODE_LEFT]) 
+    && (!ks[SDL_SCANCODE_RIGHT]) 
+    && (!ks[SDL_SCANCODE_DOWN])
+    && (!ks[SDL_SCANCODE_SPACE])){
         didpress = false;
     }
 }
@@ -40,7 +48,6 @@ void blk_GameStart(SDL_Renderer* renderer){
     // Making a scene
     scene = px_SceneCreate(300, 512);
     tetrimino = px_TetriminoCreate();
-    scorelabel = px_TextCreate(renderer, "SCORE: ");
 }
 void blk_GameUpdate(){
     px_TetriminoUpdate(&tetrimino, &scene);
@@ -75,5 +82,5 @@ void blk_GameDraw(SDL_Renderer* renderer){
     px_SceneDraw(&scene, renderer);
 
     // Drawing the score
-    px_TextDraw(renderer, scorelabel, 300, 200, 200, 100);
+    
 }

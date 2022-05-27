@@ -255,3 +255,63 @@ void px_TetriminoMove(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y){
         }
     }
 }
+void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
+    // Dropping the tetrimino
+    // These are our helpers
+    bool didDrop;
+    int height, width, xoff;
+
+    // Whats our height?
+    height = tetrimino->y + 1;
+
+    // Whats our width?
+    switch(tetrimino->type){
+    case 1:
+    case 2:
+    case 5:
+        width = 3; xoff = 0;        break;
+    case 4:
+    case 3:
+        width = 2; xoff = 0;        break;
+    case 6:
+        width = 2; xoff = 1;        break;
+    }
+
+    // Dropping!
+    while(!didDrop && !tetrimino->still){
+        // Going through the width
+        for(int x = 0; x < width; x++){
+            // Are we on the ground?
+            if(height + 2 > GRIDY){
+                didDrop = true;
+                tetrimino->still = true;
+                break;
+            }
+            else{
+                // What's the pixel below?
+                int below = px_SceneGet(scene, tetrimino->x + x + xoff, height + 1);
+
+                // Is it solid?
+                if(below == -1){
+                    didDrop = true;
+                    tetrimino->still = true;
+                    break;
+                }
+            }
+        }
+
+        // Did we escape?
+        if(didDrop){
+            break;
+        }
+        // KEEP FALLING!
+        else{
+            // Falling
+            tetrimino->y += 1;
+            height = tetrimino->y + 1;
+
+            // Drawing so it's consistent
+            px_TetriminoDraw(tetrimino, scene);
+        }
+    }
+}

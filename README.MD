@@ -44,22 +44,14 @@ make
 And that's it! Make sure you have the said libraries though!
 Insinde my **MAKEFILE** I have it so that it automatically
 launches the binaries. HOWEVER, If you're on windows, you will
-manually need to insert the SDL2.dll file.
+manually need to insert the dll files if you're on windows.
 
-## IMPORTANT NOTICE FOR COMPILING ##
-you'll need to make some modifications to the __MAKEFILE__,
-As I don't have it set up to check compiling devices.
-If you're compiling on MAC or APPLE devices, On the 
-LIBS Variable, Make it to something like this:
-```Makefile
-LIBS = -lsdl2main -lsdl_ttf -lsdl2
-```
-
-Otherwise, On windows, you'll need to make it
-like this
-```Makefile
-LIBS = -lsdl2main -lsdl2_ttf -lsdl2
-```
+### DLL FILES REQUIRED TO LAUNCH ON WINDOWS ###
+- SDL2.dll
+- SDL2_ttf.dll
+- SDL2_image.dll
+- zlib1.dll
+- libpng16-16.dll
 
 
 # Downloads #
@@ -67,6 +59,7 @@ LIBS = -lsdl2main -lsdl2_ttf -lsdl2
 - [MINGW](https://sourceforge.net/projects/mingw/)
 - [SDL2](http://libsdl.org/download-2.0.php)
 - [SDL2 TTF](https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.0.18)
+- [SDL2 Image](https://www.libsdl.org/projects/SDL_image)
 
 ### IDE's ( Up to you ) ###
 - [Visual Studio Code](https://code.visualstudio.com/)

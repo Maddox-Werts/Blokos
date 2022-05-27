@@ -19,6 +19,8 @@
 #include "app/renderer.h"
 #include "gme/scene.h"
 #include "gme/tetrimino.h"
+// --BASE
+#include "app/dtime.h"
 // --SCREENS
 #include "scn/gameplay.h"
 #include "scn/mainmenu.h"
@@ -63,6 +65,9 @@ int main(int argc, char* argv[]){
 
         // Clear screen
         px_RendererClear(renderer);
+
+        // Getting Delta Time
+        updateTime();
 
         // Switching between screens
         switch(cscrn){

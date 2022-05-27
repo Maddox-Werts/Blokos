@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 // --HEADERS
 #include "tetrimino.h"
+#include "../app/dtime.h"
 
 // CONSTANTS
 #define FTIME 120.0f/1000.0f
@@ -27,7 +28,7 @@ void px_TFALL(PX_Tetrimino* tetrimino){
         tetrimino->ft = 0;
     }
     else{
-        tetrimino->ft += FTIME;
+        tetrimino->ft += FTIME * deltatime;
     }
 }
 void px_TBORDER(PX_Tetrimino* tetrimino, PX_Scene* scene){

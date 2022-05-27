@@ -21,7 +21,7 @@ link:
 	gcc *.o -L lib $(LIBS) -o bin/$(PLATFORM)/blokos
 
 install:
-	cp res bin/$(PLATFORM)/res
+	cp -vr res bin/$(PLATFORM)
 
 clean:
 	rm *.o

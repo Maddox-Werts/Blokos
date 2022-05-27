@@ -14,7 +14,12 @@ PX_Text px_TextCreate(SDL_Renderer* renderer, const char* msg){
     PX_Text holdtext;
 
     // Getting and Creating a font
-    TTF_Font* font = TTF_OpenFont("arial.ttf", 48);
+    TTF_Font* font = TTF_OpenFont("res/fonts/mono.ttf", 32);
+
+    // Was the font opened?
+    if(font == NULL){
+        printf("Could not open font!\n");
+    }
 
     // Getting a color
     SDL_Color clr = {

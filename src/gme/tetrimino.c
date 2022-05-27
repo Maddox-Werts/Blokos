@@ -8,7 +8,7 @@
 #include "tetrimino.h"
 
 // CONSTANTS
-#define FTIME 10.0f/1000.0f
+#define FTIME 120.0f/1000.0f
 
 // Functions
 // --HELPERS

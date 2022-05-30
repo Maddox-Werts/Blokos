@@ -5,35 +5,17 @@
 // --SDL
 #include <SDL2/SDL.h>
 // --HEADERS
+#include "../app/texture.h"
 #include "mainmenu.h"
 
 // Functions
-// --HELPERS
-void blk_CREATETITLE(SDL_Renderer* renderer){
-    // Getting the Title Info stuff
-    SDL_Surface* titlesurf;
-
-    // was the surface loaded?
-    if(!(titlesurf = IMG_Load("res/sprites/blk_title.png"))){
-        printf("Failed to load Title Image!\n");
-    }
-
-    // Converting surface to texture
-    if(!(titletex = SDL_CreateTextureFromSurface(renderer, titlesurf))){
-        printf("Failed to create texture from surface!\n");
-    }
-
-    // Cleanup
-    SDL_FreeSurface(titlesurf);
-}
-
 // --BASE
 void blk_MMCreate(SDL_Renderer* renderer){
     // Init SDL2_IMG
     IMG_Init(IMG_INIT_PNG);
 
     // Creating textures and what not
-    blk_CREATETITLE(renderer);
+    titletex = px_TextureCreate(renderer, "res/sprites/title.png");
 }
 void blk_MMUpdate(){
 

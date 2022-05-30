@@ -126,7 +126,7 @@ PX_Tetrimino px_TetriminoCreate(){
 
     // Assigning Variables
     tetrimino.x             = 3;
-    tetrimino.y             = 0;
+    tetrimino.y             = 1;
     tetrimino.ox            = 0;
     tetrimino.oy            = 0;
     tetrimino.ft            = 0;

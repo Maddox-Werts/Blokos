@@ -7,26 +7,10 @@
 #include <SDL2/SDL_image.h>
 // --HEADERS
 #include "scene.h"
+#include "../app/texture.h"
 #include "../app/sound.h"
 
 // Functions
-// --HELPER
-void px_TLOADSPR(SDL_Renderer* renderer){
-    // Holding variables
-    SDL_Surface* cellsurf;
-
-    // If the surface was NOT made?
-    if(!(cellsurf = IMG_Load("res/sprites/cell.png"))){
-        printf("Failed to load Sprite Image!\n");
-    }
-
-    if(!(celltex = SDL_CreateTextureFromSurface(renderer, cellsurf))){
-        printf("Failed to load Texture!\n");
-    }
-
-    // Cleanup
-    SDL_FreeSurface(cellsurf);
-}
 
 // --HEADER
 PX_Scene px_SceneCreate(SDL_Renderer* renderer, int width, int height){
@@ -58,7 +42,7 @@ PX_Scene px_SceneCreate(SDL_Renderer* renderer, int width, int height){
     gameOver = false;
 
     // Loading textures
-    px_TLOADSPR(renderer);
+    celltex = px_TextureCreate(renderer, "res/sprites/cell.png");
 
     return scene;
 }

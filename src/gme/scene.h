@@ -30,8 +30,8 @@ typedef struct PX_Scene{
 } PX_Scene;
 
 // Variables
-bool gameOver;
 SDL_Texture* celltex;
+bool gameOver;
 
 // Functions
 PX_Scene px_SceneCreate(SDL_Renderer* renderer, int width, int height);

@@ -138,6 +138,7 @@ PX_Tetrimino px_TetriminoCreate(){
     tetrimino.type          = 1;
 
     tetrimino.still         = false;
+    tetrimino.dropping      = false;
 
     // Giving back tetrimino
     return tetrimino;
@@ -148,7 +149,7 @@ void px_TetriminoDelete(PX_Tetrimino* tetrimino){
 void px_TetriminoReset(PX_Tetrimino* tetrimino){
     tetrimino->still      = false;
     tetrimino->dropping   = false;
-    tetrimino->y          = 0;
+    tetrimino->y          = 1;
     tetrimino->x          = 3;
     tetrimino->type      += 1;
 
@@ -156,7 +157,7 @@ void px_TetriminoReset(PX_Tetrimino* tetrimino){
 }
 void px_TetriminoUpdate(PX_Tetrimino* tetrimino, PX_Scene* scene){
     // Are we static?
-    if(tetrimino->still)    {return;}
+    if(tetrimino->still)    {printf("STILL\n"); return;}
 
     // Preserve
     px_TPRESERVE(tetrimino);

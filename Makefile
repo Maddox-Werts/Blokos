@@ -5,7 +5,7 @@
 LIBS = -lsdl2main -lsdl2_ttf -lsdl2_image -lsdl2_mixer -lsdl2
 
 # COMPILING
-all: CLS compile link install clean run
+all: CLS compile link install run
 
 CLS:
 	clear
@@ -16,14 +16,16 @@ compile:
 	gcc -c -I inc src/scn/*.c
 	gcc -c -I inc src/*.c
 
+	mv *.o tmp
+
 link:
-	gcc *.o -L lib $(LIBS) -o bin/blokos
+	gcc tmp/*.o -L lib $(LIBS) -o bin/blokos
 
 install:
 	cp -vr res bin
 
 clean:
-	rm *.o
+	rm tmp/*.o
 
 run:
 	./bin/blokos

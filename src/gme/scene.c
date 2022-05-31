@@ -58,8 +58,6 @@ int px_SceneGet(PX_Scene* scene, int x, int y){
     return scene->matricies[y*GRIDX+x];
 }
 void px_SceneDraw(PX_Scene* scene, SDL_Renderer* renderer){
-    //printf("SCORE: %i\n", game_score);
-
     // Drawing our scene every x&y coords
     for(int y = 0; y < GRIDY; y++){
         // For the awesomeness!

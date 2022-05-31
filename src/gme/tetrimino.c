@@ -261,10 +261,10 @@ void px_TetriminoMove(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y){
     if(x > 0){                          // Moving Right
         for(int y = 0; y < 4; y++){
             // Getting the point
-            int cellv = px_SceneGet(scene, tetrimino->x - 1, tetrimino->y + y);
+            int cellv = px_SceneGet(scene, tetrimino->x - 1, tetrimino->y + y - 1);
             
             if(cellv == tetrimino->type + 1){
-                px_ScenePlot(scene, tetrimino->x - 1, tetrimino->y + y, 0);
+                px_ScenePlot(scene, tetrimino->x - 1, tetrimino->y + y - 1, 0);
             }
         }
     }
@@ -308,7 +308,6 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
             // Are we on the ground?
             if(height + 2 > GRIDY){
                 didDrop = true;
-                tetrimino->still = true;
                 break;
             }
             else{
@@ -318,7 +317,6 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
                 // Is it solid?
                 if(below == -1){
                     didDrop = true;
-                    tetrimino->still = true;
                     break;
                 }
             }
@@ -329,6 +327,9 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
             // Playing the sound
             px_SoundSet("res/sounds/slam.wav");
             px_SoundPlay();
+
+            // We're still
+            tetrimino->still = true;
 
             break;
         }
@@ -342,6 +343,11 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
             px_TetriminoDraw(tetrimino, scene);
         }
     }
+
+    // We're still
+    tetrimino->still = true;
+    px_TetriminoDraw(tetrimino, scene);
+    SDL_Delay(25);
 }
 void px_TetriminoRotate(PX_Tetrimino* tetrimino, int direction){
     printf("Rotating a tetrimino %i\n", direction);

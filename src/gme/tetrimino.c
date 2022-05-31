@@ -77,9 +77,12 @@ void px_TDRAW(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y, int sprite
         }
     }
 
-    // Clearing cells above
-    for(int c = 0; c < width; c++){
-        px_ScenePlot(scene, c + tetrimino->x, tetrimino->y - 1, 0);
+    // Are the cells above avalible?
+    if((tetrimino->y - 1) * GRIDY + tetrimino->x > 0){
+        // Clearing cells above
+        for(int c = 0; c < width; c++){
+            px_ScenePlot(scene, c + tetrimino->x, tetrimino->y - 1, 0);
+        }
     }
 }
 void px_TCHECKOTHER(PX_Tetrimino* tetrimino, PX_Scene* scene){
@@ -131,7 +134,7 @@ PX_Tetrimino px_TetriminoCreate(){
 
     // Assigning Variables
     tetrimino.x             = 3;
-    tetrimino.y             = 1;
+    tetrimino.y             = 0;
     tetrimino.ox            = 0;
     tetrimino.oy            = 0;
     tetrimino.ft            = 0;
@@ -147,11 +150,12 @@ void px_TetriminoDelete(PX_Tetrimino* tetrimino){
     free(tetrimino);
 }
 void px_TetriminoReset(PX_Tetrimino* tetrimino){
-    tetrimino->still      = false;
-    tetrimino->dropping   = false;
-    tetrimino->y          = 1;
-    tetrimino->x          = 3;
-    tetrimino->type      += 1;
+    tetrimino->still        = false;
+    tetrimino->dropping     = false;
+    tetrimino->y            = 0;
+    tetrimino->x            = 3;
+    tetrimino->ft           = 0;
+    tetrimino->type         += 1;
 
     if(tetrimino->type >= 7) {tetrimino->type = 1;}
 }
@@ -276,12 +280,15 @@ void px_TetriminoMove(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y){
         }
     }
     else if(x < 0){                     // Moving Left
-        for(int y = 0; y < 4; y++){
-            // Getting the point
-            int cellv = px_SceneGet(scene, tetrimino->x + width + 1, tetrimino->y + y);
+        // Are we going to cause a index out of range crash?
+        if((tetrimino->y - 1) * GRIDY + tetrimino->x > 0){
+            for(int y = 0; y < 4; y++){
+                // Getting the point
+                int cellv = px_SceneGet(scene, tetrimino->x + width + 1, tetrimino->y + y);
             
-            if(cellv == tetrimino->type + 1){
-                px_ScenePlot(scene, tetrimino->x + width + 1, tetrimino->y + y, 0);
+                if(cellv == tetrimino->type + 1){
+                    px_ScenePlot(scene, tetrimino->x + width + 1, tetrimino->y + y, 0);
+                }
             }
         }
     }
@@ -308,11 +315,14 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
         width = 2; xoff = 1;        break;
     }
 
-    // Resetting surrounding graphics
-    for(int y = 0; y < 4; y++){
-        for(int x = 0; x < 4; x++){
-            if(px_SceneGet(scene, tetrimino->x + x, tetrimino->y + y - 1) == tetrimino->type + 1){
-                px_ScenePlot(scene, tetrimino->x + x, tetrimino->y + y - 1, 0);
+    // Avalible points?
+    if(tetrimino->y * GRIDY + tetrimino->x > 0){
+        // Resetting surrounding graphics
+        for(int y = 0; y < 4; y++){
+            for(int x = 0; x < 4; x++){
+                if(px_SceneGet(scene, tetrimino->x + x, tetrimino->y + y - 1) == tetrimino->type + 1){
+                    px_ScenePlot(scene, tetrimino->x + x, tetrimino->y + y - 1, 0);
+                }
             }
         }
     }

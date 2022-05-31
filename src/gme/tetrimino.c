@@ -37,8 +37,10 @@ void px_TBORDER(PX_Tetrimino* tetrimino, PX_Scene* scene){
     if(tetrimino->y >= GRIDY - 2){
         
         // Playing the sound
-        px_SoundSet("res/sounds/drop.wav");
-        px_SoundPlay();
+        if(!tetrimino->dropping){
+            px_SoundSet("res/sounds/drop.wav");
+            px_SoundPlay();
+        }
 
         tetrimino->still = true;
     }
@@ -107,8 +109,11 @@ void px_TCHECKOTHER(PX_Tetrimino* tetrimino, PX_Scene* scene){
         if(tilebelow != 0 && tilebelow != tetrimino->type + 1){
 
             // Playing the sound
-            px_SoundSet("res/sounds/drop.wav");
-            px_SoundPlay();
+            // IF we're not being dropped
+            if(!tetrimino->dropping){
+                px_SoundSet("res/sounds/drop.wav");
+                px_SoundPlay();
+            }
 
             tetrimino->still = true;
         }
@@ -142,6 +147,7 @@ void px_TetriminoDelete(PX_Tetrimino* tetrimino){
 }
 void px_TetriminoReset(PX_Tetrimino* tetrimino){
     tetrimino->still      = false;
+    tetrimino->dropping   = false;
     tetrimino->y          = 0;
     tetrimino->x          = 3;
     tetrimino->type      += 1;
@@ -301,6 +307,15 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
         width = 2; xoff = 1;        break;
     }
 
+    // Resetting surrounding graphics
+    for(int y = 0; y < 4; y++){
+        for(int x = 0; x < 4; x++){
+            if(px_SceneGet(scene, tetrimino->x + x, tetrimino->y + y) == tetrimino->type + 1){
+                px_ScenePlot(scene, tetrimino->x + x, tetrimino->y + y, 0);
+            }
+        }
+    }
+
     // Dropping!
     while(!didDrop && !tetrimino->still){
         // Going through the width
@@ -312,7 +327,7 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
             }
             else{
                 // What's the pixel below?
-                int below = px_SceneGet(scene, tetrimino->x + x + xoff, height + 1);
+                int below = px_SceneGet(scene, tetrimino->x + x + xoff, height + 2);
 
                 // Is it solid?
                 if(below == -1){
@@ -328,9 +343,6 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
             px_SoundSet("res/sounds/slam.wav");
             px_SoundPlay();
 
-            // We're still
-            tetrimino->still = true;
-
             break;
         }
         // KEEP FALLING!
@@ -345,8 +357,11 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
     }
 
     // We're still
-    tetrimino->still = true;
-    px_TetriminoDraw(tetrimino, scene);
+    // So play the cool sound!
+    tetrimino->dropping = true;
+    // Drop imidiatly.
+    tetrimino->ft = 4;
+    // Just to buffer
     SDL_Delay(25);
 }
 void px_TetriminoRotate(PX_Tetrimino* tetrimino, int direction){

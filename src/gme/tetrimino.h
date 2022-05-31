@@ -21,7 +21,7 @@ typedef struct PX_Tetrimino{
     int rotation;
 
     // Cases
-    bool still;
+    bool still, dropping;
 
     // Timers
     float ft;

@@ -16,24 +16,32 @@ void game_MoveTetrimino(){
         if(ks[SDL_SCANCODE_LEFT]){
             // TODO: IMPLEMENT
             px_TetriminoMove(&tetrimino, &scene, -1, 0);
-            didpress = true;
         }
         else if(ks[SDL_SCANCODE_RIGHT]){
             // TODO: IMPLEMENT
             px_TetriminoMove(&tetrimino, &scene, +1, 0);
-            didpress = true;
         }
         else if(ks[SDL_SCANCODE_DOWN]){
-            didpress = true;
             px_TetriminoMove(&tetrimino, &scene, 0, +2);
         }
         else if(ks[SDL_SCANCODE_SPACE]){
-            didpress = true;
             px_TetriminoDrop(&tetrimino, &scene);
+        }
+        else if(ks[SDL_SCANCODE_Z]){
+            didpress = true;
+            px_TetriminoRotate(&tetrimino, -1);
+        }
+        else if(ks[SDL_SCANCODE_X]){
+            didpress = true;
+            px_TetriminoRotate(&tetrimino, 1);
         }
         else{
             // No keys, Do nothing!
+            return;
         }
+
+        // We did press a key
+        didpress = true;
     }
     else if((!ks[SDL_SCANCODE_LEFT]) 
     && (!ks[SDL_SCANCODE_RIGHT]) 

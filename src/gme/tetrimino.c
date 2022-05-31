@@ -336,3 +336,6 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
         }
     }
 }
+void px_TetriminoRotate(PX_Tetrimino* tetrimino, int direction){
+    printf("Rotating a tetrimino %i\n", direction);
+}

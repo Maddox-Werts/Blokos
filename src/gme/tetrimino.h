@@ -34,6 +34,7 @@ void px_TetriminoUpdate(PX_Tetrimino* tetrimino, PX_Scene* scene);
 void px_TetriminoDraw(PX_Tetrimino* tetrimino, PX_Scene* scene);
 void px_TetriminoMove(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y);
 void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene);
+void px_TetriminoRotate(PX_Tetrimino* tetrimino, int direction);
 
 // End definition
 #endif

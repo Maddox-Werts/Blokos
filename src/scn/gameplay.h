@@ -22,9 +22,6 @@ bool didpress;
 PX_Text score_txt;
 PX_Text score_num_txt;
 
-// Entities
-PX_Monster monster;
-
 // Functions
 void blk_GameStart(SDL_Renderer* renderer);
 void blk_GameUpdate();

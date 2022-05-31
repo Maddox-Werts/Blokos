@@ -310,8 +310,8 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
     // Resetting surrounding graphics
     for(int y = 0; y < 4; y++){
         for(int x = 0; x < 4; x++){
-            if(px_SceneGet(scene, tetrimino->x + x, tetrimino->y + y) == tetrimino->type + 1){
-                px_ScenePlot(scene, tetrimino->x + x, tetrimino->y + y, 0);
+            if(px_SceneGet(scene, tetrimino->x + x, tetrimino->y + y - 1) == tetrimino->type + 1){
+                px_ScenePlot(scene, tetrimino->x + x, tetrimino->y + y - 1, 0);
             }
         }
     }

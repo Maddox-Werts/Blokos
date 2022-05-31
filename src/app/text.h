@@ -14,6 +14,8 @@ typedef struct PX_Text{
     TTF_Font* font;
     SDL_Surface* surface;
     SDL_Texture* texture;
+
+    int width;
 } PX_Text;
 
 // Functions

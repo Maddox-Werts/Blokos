@@ -73,6 +73,8 @@ void game_UpdateScore(SDL_Renderer* renderer){
         return;
     }
 
+    score_num_txt.width = score_num_txt.surface->w;
+
     // Cleanup
     SDL_FreeSurface(score_num_txt.surface);
 }
@@ -113,5 +115,5 @@ void blk_GameDraw(SDL_Renderer* renderer){
     game_UpdateScore(renderer);
 
     px_TextDraw(renderer, score_txt, 300, 150, 112, 40);
-    px_TextDraw(renderer, score_num_txt, 400, 150, 20, 40);
+    px_TextDraw(renderer, score_num_txt, 400, 150, (int)(score_num_txt.width * 1.5f), 40);
 }

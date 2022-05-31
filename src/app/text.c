@@ -45,6 +45,7 @@ PX_Text px_TextCreate(SDL_Renderer* renderer, const char* msg){
     holdtext.font = font;
     holdtext.surface = surf;
     holdtext.texture = text;
+    holdtext.width = surf->w;
 
     // Giving result
     return holdtext;

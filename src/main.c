@@ -41,6 +41,7 @@ void switchscrn(){
     else if(!(ks[SDL_SCANCODE_SPACE]) && rtt){
         cscrn = 1;
         rtt = false;
+        blk_MMClean();
     }
 }
 

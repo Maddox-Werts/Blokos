@@ -58,6 +58,8 @@ int px_SceneGet(PX_Scene* scene, int x, int y){
     return scene->matricies[y*GRIDX+x];
 }
 void px_SceneDraw(PX_Scene* scene, SDL_Renderer* renderer){
+    //printf("SCORE: %i\n", game_score);
+
     // Drawing our scene every x&y coords
     for(int y = 0; y < GRIDY; y++){
         // For the awesomeness!
@@ -114,9 +116,6 @@ void px_SceneDraw(PX_Scene* scene, SDL_Renderer* renderer){
     
         // Were all the cells filled?
         if(cellsfilled >= GRIDX){
-            // Points?
-            scene->SCORE += 100;
-
             // Playing the sound
             px_SoundSet("res/sounds/clear.wav");
             px_SoundPlay();
@@ -153,6 +152,10 @@ void px_SceneDraw(PX_Scene* scene, SDL_Renderer* renderer){
                     SDL_Delay(20);
                 }
             }
+
+            // Points?
+            scene->score += 100;
+            printf("New Score: %i\n", scene->score);
         }
     }
 }

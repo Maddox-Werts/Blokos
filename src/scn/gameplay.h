@@ -17,6 +17,10 @@ PX_Tetrimino tetrimino;
 PX_Scene scene;
 bool didpress;
 
+// Texts
+PX_Text score_txt;
+PX_Text score_num_txt;
+
 // Functions
 void blk_GameStart(SDL_Renderer* renderer);
 void blk_GameUpdate();

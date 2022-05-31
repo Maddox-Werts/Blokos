@@ -2,6 +2,7 @@
 // --SYSTEM
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 // --SDL
 #include <SDL2/SDL.h>
 // --HEADERS
@@ -50,12 +51,41 @@ void game_MoveTetrimino(){
         didpress = false;
     }
 }
+void game_UpdateScore(SDL_Renderer* renderer){
+    // A color?
+    SDL_Color fg = {
+        255,255,255, 255
+    };
+
+    // New Score
+    char* nst[10];
+    sprintf(nst, "%d", scene.score);
+
+    // Making surface
+    if(! (score_num_txt.surface = TTF_RenderText_Solid(score_num_txt.font, nst, fg))){
+        printf("Failed to update Score(number) Surface\n");
+        return;
+    }
+
+    // Updating the texture
+    if(! (score_num_txt.texture = SDL_CreateTextureFromSurface(renderer, score_num_txt.surface))){
+        printf("Failed to update Score(number) Texture\n");
+        return;
+    }
+
+    // Cleanup
+    SDL_FreeSurface(score_num_txt.surface);
+}
 
 // --HEADER
 void blk_GameStart(SDL_Renderer* renderer){
     // Making a scene
     scene = px_SceneCreate(renderer, 300, 512);
     tetrimino = px_TetriminoCreate();
+
+    // Making other elements
+    score_txt = px_TextCreate(renderer, "SCORE: ");
+    score_num_txt = px_TextCreate(renderer, "0");
 }
 void blk_GameUpdate(){
     px_TetriminoUpdate(&tetrimino, &scene);
@@ -78,4 +108,10 @@ void blk_GameDraw(SDL_Renderer* renderer){
     // World drawing and Scene drawing
     px_TetriminoDraw(&tetrimino, &scene);
     px_SceneDraw(&scene, renderer);
+
+    // Text Updates
+    game_UpdateScore(renderer);
+
+    px_TextDraw(renderer, score_txt, 300, 150, 112, 40);
+    px_TextDraw(renderer, score_num_txt, 400, 150, 20, 40);
 }

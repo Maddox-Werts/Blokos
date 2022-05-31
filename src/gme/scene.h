@@ -25,8 +25,7 @@
 typedef struct PX_Scene{
     int matricies[144];
     int width, height;
-
-    int SCORE;
+    int score;
 } PX_Scene;
 
 // Variables

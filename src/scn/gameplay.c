@@ -64,12 +64,6 @@ void blk_GameUpdate(){
                 -- THIS CODE WOULD DO THIS --
             It would "delete" the current block,
             and place it to the top of the screen.
-            ======================================
-            tetrimino.still = false;
-            tetrimino.type += 1;
-            tetrimino.y = 0;
-
-            if(tetrimino.type >= 7) {tetrimino.type = 0;}
         */
         
         // This part of the code will spawn in a NEW block and keep the old one!

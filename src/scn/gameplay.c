@@ -10,6 +10,7 @@
 #include "../gme/monster.h"
 
 // Variables
+PX_Monster monster;
 
 // Functions
 // --HELPER
@@ -93,6 +94,7 @@ void blk_GameStart(SDL_Renderer* renderer){
     score_num_txt = px_TextCreate(renderer, "0");
 
     // Making entities
+    monster = px_MonsterCreate();
 }
 void blk_GameUpdate(){
     px_TetriminoUpdate(&tetrimino, &scene);
@@ -112,6 +114,7 @@ void blk_GameUpdate(){
     game_MoveTetrimino();
 
     // Updating Entities
+    px_MonsterUpdate(&monster);
 }
 void blk_GameDraw(SDL_Renderer* renderer){
     // World drawing and Scene drawing
@@ -125,4 +128,5 @@ void blk_GameDraw(SDL_Renderer* renderer){
     px_TextDraw(renderer, score_num_txt, 400, 150, (int)(score_num_txt.width * 1.5f), 40);
 
     // Drawing entities
+    px_MosnterDraw(renderer, &scene, &monster);
 }

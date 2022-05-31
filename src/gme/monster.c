@@ -2,6 +2,7 @@
 // --SYSTEM
 #include <stdio.h>
 #include <stdbool.h>
+#include <time.h>
 // --SDL
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -19,6 +20,20 @@ float ftime = 0;
 
 // Functions
 // --HELPER
+void px_MACTIVATE(PX_Monster* monster){    
+
+    // Adding to time
+    if(ftime > FALLT * 5){
+        ftime = 0;
+        monster->active     = true;
+        monster->x          = 3;
+        monster->y          = 0;
+    }
+    else{
+        ftime += deltatime * FALLSLICE;
+    }
+}
+
 void px_MFALL(PX_Monster* monster){
     if(ftime > FALLT){
         monster->y += 1;
@@ -27,6 +42,60 @@ void px_MFALL(PX_Monster* monster){
     else{
         ftime += deltatime * FALLSLICE;
     }
+
+    // Are we below the grid?
+    if(monster->y > GRIDY){
+        monster->active = false;
+        return;
+    }
+}
+void px_MSTRIDE(PX_Monster* monster){
+    // Can we even move?
+    if(ftime < FALLT){
+        return;
+    }
+
+    // Getting a random direction
+    srand(time(NULL));
+
+    // Helpers
+    int randec, direction;
+    
+    // Getting the random range
+    randec = rand() % 100;
+    
+    // Here's whats gonna happen:
+    /*
+        IF: The range is between 0-40
+        THEN: Move LEFT
+
+        IF: the range is between 40-60
+        THEN: Stay put
+        
+        IF: the range is between 60-100
+        THEN: Move RIGHT
+    */
+
+    if(randec < 40){
+        direction = -1;
+    }
+    else if(40 < randec && randec < 60){
+        direction = 0;
+    }
+    else if(60 < randec && randec < 100){
+        direction = +1;
+    }
+    else{
+        printf("What did you do? It's broken?\n");
+    }
+
+    // Can we move in the direction we want?
+    if(monster->x + direction < 0
+    || monster->x + direction > GRIDX - 1){
+        return;
+    }
+
+    monster->x += direction;
 }
 
 // --HEADER
@@ -35,7 +104,7 @@ PX_Monster px_MonsterCreate(){
     PX_Monster monster;
 
     // Setting variables
-    monster.active  = true;
+    monster.active  = false;
     monster.x       = 3;
     monster.y       = 0;
 
@@ -43,10 +112,18 @@ PX_Monster px_MonsterCreate(){
     return monster;
 }
 void px_MonsterUpdate(PX_Monster* monster){
+
+    // Active?
+    if(!monster->active) {px_MACTIVATE(monster); return;}
+
     // Physics
+    px_MSTRIDE(monster);
     px_MFALL(monster);
 }
 void px_MosnterDraw(SDL_Renderer* renderer, PX_Scene* scene, PX_Monster* monster){
+    // Active?
+    if(!monster->active) {return;}
+
     // Making shapes
     SDL_Rect rect;
 

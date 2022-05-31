@@ -140,7 +140,14 @@ PX_Tetrimino px_TetriminoCreate(){
 void px_TetriminoDelete(PX_Tetrimino* tetrimino){
     free(tetrimino);
 }
+void px_TetriminoReset(PX_Tetrimino* tetrimino){
+    tetrimino->still      = false;
+    tetrimino->y          = 0;
+    tetrimino->x          = 3;
+    tetrimino->type      += 1;
 
+    if(tetrimino->type >= 7) {tetrimino->type = 1;}
+}
 void px_TetriminoUpdate(PX_Tetrimino* tetrimino, PX_Scene* scene){
     // Are we static?
     if(tetrimino->still)    {return;}

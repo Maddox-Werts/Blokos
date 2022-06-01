@@ -20,6 +20,7 @@
 // Variables
 bool finishedAnger = false;
 float ftime = 0;
+int standstill = 0;
 
 // Functions
 // --HELPER
@@ -28,6 +29,7 @@ void px_MACTIVATE(PX_Monster* monster){
     // Adding to time
     if(ftime > RESPAWNT){
         ftime = 0;
+        standstill          = false;
         monster->active     = true;
         monster->x          = 3;
         monster->y          = 0;
@@ -60,7 +62,7 @@ void px_MFALL(PX_Monster* monster, PX_Scene* scene){
         return;
     }
 }
-void px_MSTRIDE(PX_Monster* monster){
+void px_MSTRIDE(PX_Monster* monster, PX_Scene* scene){
     // Can we even move?
     if(ftime < FALLT){
         return;
@@ -90,7 +92,7 @@ void px_MSTRIDE(PX_Monster* monster){
     if(randec < 40){
         direction = -1;
     }
-    else if(40 < randec && randec < 60){
+    else if(40 <= randec && randec <= 60){
         return;
     }
     else if(60 < randec && randec < 100){
@@ -101,10 +103,18 @@ void px_MSTRIDE(PX_Monster* monster){
     }
 
     // Can we move in the direction we want?
-    if(monster->x + direction < 0
-    || monster->x + direction > GRIDX - 1){
-        return;
+    if(monster->x + direction < 0){
+        monster->x = GRIDX - 1;
     }
+    else if(monster->x + direction > GRIDX - 1){
+        monster->x = 1;
+    }
+
+    // Will we end up moving into a tile?
+    int nexttile = px_SceneGet(scene, monster->x + direction, monster->y);
+
+    if(nexttile != 0)   {standstill += 1; return;}
+    else                {standstill = 0;}
 
     monster->x += direction;
 
@@ -112,19 +122,38 @@ void px_MSTRIDE(PX_Monster* monster){
     px_SoundPlay("res/sounds/entities/move.wav", 2);
 }
 void px_MKILL(PX_Monster* monster, PX_Scene* scene){
+    /*
+        We won't kill the monster if he is overriden by a block
+        that is already placed
+        ===========================
+    */
+
     // What's our position in the grid?
     int ccell = px_SceneGet(scene, monster->x, monster->y);
 
     // Are we in something..
     if(ccell == -1){
-        // Playing the sound
+        // Can we move above
+        if(px_SceneGet(scene, monster->x, monster->y - 1) == 0){
+            monster->y -= 1;
+        }
+        else{
+            // Kill
+            px_SoundPlay("res/sounds/entities/kill.wav", 2);
+            monster->active = false;
+        }
+    }
+
+    // Are we in a standstill..
+    if(standstill > 4){
+        // Kill
         px_SoundPlay("res/sounds/entities/kill.wav", 2);
         monster->active = false;
     }
 }
 void px_MGCHECK(PX_Monster* monster, PX_Scene* scene){
     // Are we on the floor?
-    if(monster->y + 1 > GRIDY){
+    if(monster->y + 2 > GRIDY){
         monster->grounded = true;
         return;
     }
@@ -148,6 +177,13 @@ void px_MCORRUPT(PX_Monster* monster, PX_Scene* scene){
 
             // Playing a sound
             px_SoundPlay("res/sounds/entities/corrupt.wav", 2);
+
+            // Should we stand still?
+            int shouldStand = rand() % 50;
+
+            if(shouldStand > 10){
+                standstill = 0;
+            }
         }
     }
     else{
@@ -181,7 +217,7 @@ void px_MonsterUpdate(PX_Monster* monster, PX_Scene* scene){
     px_MGCHECK(monster, scene);
 
     // Physics
-    px_MSTRIDE(monster);
+    px_MSTRIDE(monster, scene);
     px_MFALL(monster, scene);
 
     // Effects

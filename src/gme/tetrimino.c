@@ -23,6 +23,35 @@
     I do NOT know how to use those haha
 */
 // ----DRAWING
+// ----COLLISION
+bool px_TCOLLIDING(PX_Tetrimino* tetrimino, PX_Scene* scene){
+    for(int y = 0; y < 4; y++){
+        // Lets be sure we're not on the ground.
+        if(tetrimino->y + y + 1 > GRIDY || tetrimino->y + y - 1 < 0){
+            break;
+        }
+
+        // All X's
+        for(int x = 0; x < 4; x++){
+            // Current tile:
+            int ctile = px_SceneGet(scene, tetrimino->x + x, tetrimino->y + y);
+
+            // Is this tile VALID
+            if(ctile == tetrimino->type + 1){
+                // Get the thing below us:
+                int belowTile = px_SceneGet(scene, tetrimino->x + x, tetrimino->y + y + 1);
+
+                // Is something below us?
+                if(belowTile != 0 && belowTile != tetrimino->type + 1){
+                    return true;
+                }
+            }
+        }
+    }
+
+    // Not a success
+    return false;
+}
 // ----PHYSICS
 void px_TFALL(PX_Tetrimino* tetrimino){
     if(tetrimino->ft > 4){
@@ -87,6 +116,7 @@ void px_TDRAW(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y, int sprite
 void px_TCHECKOTHER(PX_Tetrimino* tetrimino, PX_Scene* scene){
     // This is so that we're able to detect if we're colliding with another block
     // Only the top part will be detected now
+    /*
     int width;
     int offset;
 
@@ -117,6 +147,21 @@ void px_TCHECKOTHER(PX_Tetrimino* tetrimino, PX_Scene* scene){
             }
 
             tetrimino->still = true;
+        }
+    }
+    */
+
+    /* 
+            -- NEW SYSTEM OF COLLISION!
+        This system will account for 
+        rotations
+    */
+
+    if(px_TCOLLIDING(tetrimino, scene)){
+        tetrimino->still = true;
+        // The sound
+        if(!tetrimino->dropping){
+            px_SoundPlay("res/sounds/drop.wav", 1);
         }
     }
 }
@@ -344,11 +389,8 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
                 break;
             }
             else{
-                // What's the pixel below?
-                int below = px_SceneGet(scene, tetrimino->x + x + xoff, height + 2);
-
-                // Is it solid?
-                if(below == -1){
+                // Checking others
+                if(px_TCOLLIDING(tetrimino, scene)){
                     didDrop = true;
                     break;
                 }

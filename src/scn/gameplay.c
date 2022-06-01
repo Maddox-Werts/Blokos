@@ -33,11 +33,9 @@ void game_MoveTetrimino(){
             px_TetriminoDrop(&tetrimino, &scene);
         }
         else if(ks[SDL_SCANCODE_Z]){
-            didpress = true;
             px_TetriminoRotate(&tetrimino, -1);
         }
         else if(ks[SDL_SCANCODE_X]){
-            didpress = true;
             px_TetriminoRotate(&tetrimino, 1);
         }
         else{
@@ -51,7 +49,9 @@ void game_MoveTetrimino(){
     else if((!ks[SDL_SCANCODE_LEFT]) 
     && (!ks[SDL_SCANCODE_RIGHT]) 
     && (!ks[SDL_SCANCODE_DOWN])
-    && (!ks[SDL_SCANCODE_SPACE])){
+    && (!ks[SDL_SCANCODE_SPACE])
+    && (!ks[SDL_SCANCODE_Z])
+    && (!ks[SDL_SCANCODE_X])){
         didpress = false;
     }
 }

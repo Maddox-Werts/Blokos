@@ -372,5 +372,17 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
     SDL_Delay(25);
 }
 void px_TetriminoRotate(PX_Tetrimino* tetrimino, int direction){
-    printf("Rotating a tetrimino %i\n", direction);
+    // Rotating
+    tetrimino->rotation += direction;
+
+    // Clamping
+    if(tetrimino->rotation < 0){
+        tetrimino->rotation = 3;
+    }
+    if(tetrimino->rotation > 3){
+        tetrimino->rotation = 0;
+    }
+
+    // New rotation?
+    printf("Rotation: %i\n", tetrimino->rotation);
 }

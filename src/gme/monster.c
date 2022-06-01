@@ -14,7 +14,7 @@
 
 // Constants
 #define FALLT 4
-#define RESPAWNT 40
+#define RESPAWNT 140
 #define FALLSLICE 120.0f/1000.0f
 
 // Variables

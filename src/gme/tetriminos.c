@@ -1,7 +1,17 @@
 // File
 #include "tetriminos.h"
 
+/*
+    -- This is a zero'd out thing --
+
+    0,0,0,0,
+    0,0,0,0,
+    0,0,0,0,
+    0,0,0,0
+*/
+
 // Pieces
+// -- THE J PIECE
 int te_J[16] = {
     1,0,0,0,
     1,1,1,0,

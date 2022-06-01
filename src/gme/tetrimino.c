@@ -154,6 +154,7 @@ void px_TetriminoReset(PX_Tetrimino* tetrimino){
     tetrimino->x            = 3;
     tetrimino->ft           = 0;
     tetrimino->type         += 1;
+    tetrimino->rotation     = 0;
 
     if(tetrimino->type >= 7) {tetrimino->type = 1;}
 }
@@ -172,69 +173,78 @@ void px_TetriminoUpdate(PX_Tetrimino* tetrimino, PX_Scene* scene){
     px_TBORDER(tetrimino, scene);
 }
 void px_TetriminoDraw(PX_Tetrimino* tetrimino, PX_Scene* scene){
-    // Going through each type
-    switch(tetrimino->type){
-    // The I piece
-    case 0:
-        // The I Piece is causing big bugs, DELETED :(
-        break;
+    /*
+            Rotations, are complicated.
+            Let's use a little cheat to get through it!
+    */
 
-    // The J piece
-    case 1:
-        for (int y = 0; y < 4; y ++){
-            for (int x = 0; x < 4; x ++){
-                px_TDRAW(tetrimino, scene, x,y, te_J[y*4+x]);
-            }
-        }
-        break;
+    // Going through X and Y
+    for (int wy = 0; wy < 4; wy ++){
+        for (int wx = 0; wx < 4; wx ++){
+            // Sorting out the rotation stuff
+            int x,y;
 
-    // The L piece
-    case 2:
-        for (int y = 0; y < 4; y ++){
-            for (int x = 0; x < 4; x ++){
-                px_TDRAW(tetrimino, scene, x,y, te_L[y*4+x]);
+            // Flipping?
+            switch(tetrimino->rotation){
+            case 0:         // Up
+                x = wx;
+                y = wy;
+                break;
+            case 1:         // Right
+                x = wy;
+                y = 2 - wx;
+                break;
+            case 2:         // Down
+                x = 2 - wx;
+                y = 2 - wy;
+                break;
+            case 3:         // Left
+                x = 2 - wy;
+                y = wx;
+                break;
             }
-        }
-        break;
-    
-    // The O piece
-    case 3:
-        for (int y = 0; y < 4; y ++){
-            for (int x = 0; x < 4; x ++){
-                px_TDRAW(tetrimino, scene, x,y, te_O[y*4+x]);
-            }
-        }
-        break;
 
-    // The S piece
-    case 4:
-        for (int y = 0; y < 4; y ++){
-            for (int x = 0; x < 4; x ++){
-                px_TDRAW(tetrimino, scene, x,y, te_S[y*4+x]);
+            // Going through each type
+            switch(tetrimino->type){
+            // The I piece
+            case 0:
+                // The I Piece is causing big bugs, DELETED :(
+                break;
+
+            // The J piece
+            case 1:
+                px_TDRAW(tetrimino, scene, wx,wy, te_J[y*4+x]);
+                break;
+
+            // The L piece
+            case 2:
+                px_TDRAW(tetrimino, scene, wx,wy, te_L[y*4+x]);
+                break;
+    
+            // The O piece
+            case 3:
+                px_TDRAW(tetrimino, scene, wx,wy, te_O[y*4+x]);
+                break;
+
+            // The S piece
+            case 4:
+                px_TDRAW(tetrimino, scene, wx,wy, te_S[y*4+x]);
+                break;
+    
+            // The T piece
+            case 5:
+                px_TDRAW(tetrimino, scene, wx,wy, te_T[y*4+x]);
+                break;
+    
+            // The Z piece
+            case 6:
+                px_TDRAW(tetrimino, scene, wx,wy, te_Z[y*4+x]);
+                break;
+    
+            default:
+                break;
             }
         }
-        break;
-    
-    // The T piece
-    case 5:
-        for (int y = 0; y < 4; y ++){
-            for (int x = 0; x < 4; x ++){
-                px_TDRAW(tetrimino, scene, x,y, te_T[y*4+x]);
-            }
-        }
-        break;
-    
-    // The Z piece
-    case 6:
-        for (int y = 0; y < 4; y ++){
-            for (int x = 0; x < 4; x ++){
-                px_TDRAW(tetrimino, scene, x,y, te_Z[y*4+x]);
-            }
-        }
-        break;
-    
-    default:
-        break;
     }
 }
 void px_TetriminoMove(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y){
@@ -372,6 +382,9 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
     SDL_Delay(25);
 }
 void px_TetriminoRotate(PX_Tetrimino* tetrimino, int direction){
+    // Dumb types
+    if(tetrimino->type == 3)    {return;}
+
     // Rotating
     tetrimino->rotation += direction;
 

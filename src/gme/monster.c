@@ -33,7 +33,7 @@ void px_MACTIVATE(PX_Monster* monster){
         monster->y          = 0;
 
         // Making the sounds
-        px_SoundPlay("res/sounds/entities/monster_anger.wav", 2);
+        px_SoundPlay("res/sounds/entities/anger.wav", 2);
     }
     else{
         ftime += deltatime * FALLSLICE;
@@ -109,7 +109,7 @@ void px_MSTRIDE(PX_Monster* monster){
     monster->x += direction;
 
     // Sounds
-    px_SoundPlay("res/sounds/entities/monster_walk.wav", 2);
+    px_SoundPlay("res/sounds/entities/move.wav", 2);
 }
 void px_MKILL(PX_Monster* monster, PX_Scene* scene){
     // What's our position in the grid?
@@ -118,7 +118,7 @@ void px_MKILL(PX_Monster* monster, PX_Scene* scene){
     // Are we in something..
     if(ccell == -1){
         // Playing the sound
-        px_SoundPlay("res/sounds/entities/monster_kill.wav", 2);
+        px_SoundPlay("res/sounds/entities/kill.wav", 2);
         monster->active = false;
     }
 }
@@ -142,8 +142,12 @@ void px_MCORRUPT(PX_Monster* monster, PX_Scene* scene){
     // Corrupt when it's time
     if(ftime > FALLT){
         ftime = 0;
+
         if(monster->y + 2 < GRIDY){
             px_ScenePlot(scene, monster->x, monster->y + 1, 0);
+
+            // Playing a sound
+            px_SoundPlay("res/sounds/entities/corrupt.wav", 2);
         }
     }
     else{

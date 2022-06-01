@@ -21,6 +21,7 @@
 #include "gme/tetrimino.h"
 // --BASE
 #include "app/dtime.h"
+#include "app/prefs.h"
 // --SCREENS
 #include "scn/gameplay.h"
 #include "scn/mainmenu.h"
@@ -48,8 +49,11 @@ void switchscrn(){
 // Entry Point
 int main(int argc, char* argv[]){
     // This is our starting point
+    // Prefrences
+    PX_PrefrenceResult prefs = px_ReadPrefs();
+
     // Creating a window
-    PX_Window window = px_WindowCreate("BLOKOS", 512, 512);
+    PX_Window window = px_WindowCreate("BLOKOS", prefs.width, prefs.height);
     SDL_Renderer* renderer = px_RendererCreate(window.window);
 
     // Screen state

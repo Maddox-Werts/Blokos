@@ -103,10 +103,12 @@ void px_TBORDER(PX_Tetrimino* tetrimino, PX_Scene* scene){
 void px_TDRAW(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y, int spriteval){
     // Placeholding someting?
     const int tetdrawtype = tetrimino->type + 1;
-    int width;
+    int width = 0;
 
-    // How wide?
+    // What is our width?
     switch(tetrimino->type){
+    case 0:
+        width = 4;      break;
     case 1:
     case 2:
     case 4:
@@ -143,41 +145,6 @@ void px_TDRAW(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y, int sprite
 void px_TCHECKOTHER(PX_Tetrimino* tetrimino, PX_Scene* scene){
     // This is so that we're able to detect if we're colliding with another block
     // Only the top part will be detected now
-    /*
-    int width;
-    int offset;
-
-    // Getting the width of the piece
-    switch(tetrimino->type){
-    case 1:
-    case 2:
-    case 5:
-        width = 3; offset = 0;      break;
-    case 6:
-        width = 2; offset = 1;      break;
-    case 4:
-    case 3:
-        width = 2; offset = 0;      break;
-    }
-
-    // Go through each column
-    for(int c = 0; c < width; c++){
-        // What's below us?
-        int tilebelow = px_SceneGet(scene, tetrimino->x + c + offset, tetrimino->y + 2);
-
-        if(tilebelow != 0 && tilebelow != tetrimino->type + 1){
-
-            // Playing the sound
-            // IF we're not being dropped
-            if(!tetrimino->dropping){
-                px_SoundPlay("res/sounds/drop.wav", 1);
-            }
-
-            tetrimino->still = true;
-        }
-    }
-    */
-
     /* 
             -- NEW SYSTEM OF COLLISION!
         This system will account for 
@@ -272,7 +239,7 @@ void px_TetriminoDraw(PX_Tetrimino* tetrimino, PX_Scene* scene){
             switch(tetrimino->type){
             // The I piece
             case 0:
-                // The I Piece is causing big bugs, DELETED :(
+                px_TDRAW(tetrimino, scene, wx,wy, te_I[y*4+x]);
                 break;
 
             // The J piece

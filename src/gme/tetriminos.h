@@ -18,16 +18,12 @@
 
 */
 
+int te_I[16];
 int te_J[16];
-
 int te_L[16];
-
 int te_O[16];
-
 int te_S[16];
-
 int te_T[16];
-
 int te_Z[16];
 
 // End definition

@@ -33,10 +33,10 @@ void game_MoveTetrimino(){
             px_TetriminoDrop(&tetrimino, &scene);
         }
         else if(ks[SDL_SCANCODE_Z]){
-            px_TetriminoRotate(&tetrimino, -1);
+            px_TetriminoRotate(&tetrimino, &scene, -1);
         }
         else if(ks[SDL_SCANCODE_X]){
-            px_TetriminoRotate(&tetrimino, 1);
+            px_TetriminoRotate(&tetrimino, &scene, 1);
         }
         else{
             // No keys, Do nothing!

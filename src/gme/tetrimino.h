@@ -16,7 +16,7 @@
 typedef struct PX_Tetrimino{
     // Variables
     int x,y;
-    int ox,oy;
+    int width;
     int type;
     int rotation;
 
@@ -36,7 +36,7 @@ void px_TetriminoDraw(PX_Tetrimino* tetrimino, PX_Scene* scene);
 void px_TetriminoReset(PX_Tetrimino* tetrimino);
 void px_TetriminoMove(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y);
 void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene);
-void px_TetriminoRotate(PX_Tetrimino* tetrimino, int direction);
+void px_TetriminoRotate(PX_Tetrimino* tetrimino, PX_Scene* scene, int direction);
 
 // End definition
 #endif

@@ -52,6 +52,33 @@ bool px_TCOLLIDING(PX_Tetrimino* tetrimino, PX_Scene* scene){
     // Not a success
     return false;
 }
+bool px_TOVEREDGE(PX_Tetrimino* tetrimino, PX_Scene* scene, int xoffset, int yoffset){
+    int width, start;
+
+    width = 0; start = 4;
+
+    // What is our width?
+    for(int y = 0; y < 4; y++){
+        for(int x = 0; x < 4; x++){
+            // What's our cell?
+            int ccell = px_SceneGet(scene, tetrimino->x + x, tetrimino->y + y);
+
+            // Is our cell valid
+            if(ccell == tetrimino->type + 1){
+                // Setting stuff
+                if(x < start)   { start = x; }
+                if(width < x)   { width = x; }
+            }
+        }
+    }
+
+    // Giving the piece its info
+    tetrimino->width = width;
+
+    // Can we move?
+    return tetrimino->x + start + xoffset < 0
+    || tetrimino->x + width + (xoffset + 1) > GRIDX;
+}
 // ----PHYSICS
 void px_TFALL(PX_Tetrimino* tetrimino){
     if(tetrimino->ft > 4){
@@ -165,10 +192,6 @@ void px_TCHECKOTHER(PX_Tetrimino* tetrimino, PX_Scene* scene){
         }
     }
 }
-void px_TPRESERVE(PX_Tetrimino* tetrimino){
-    tetrimino->ox = tetrimino->x;
-    tetrimino->oy = tetrimino->y;
-}
 
 // --REGULARS
 PX_Tetrimino px_TetriminoCreate(){
@@ -178,8 +201,7 @@ PX_Tetrimino px_TetriminoCreate(){
     // Assigning Variables
     tetrimino.x             = 3;
     tetrimino.y             = 0;
-    tetrimino.ox            = 0;
-    tetrimino.oy            = 0;
+    tetrimino.width         = 0;
     tetrimino.ft            = 0;
     tetrimino.type          = 1;
 
@@ -206,9 +228,6 @@ void px_TetriminoReset(PX_Tetrimino* tetrimino){
 void px_TetriminoUpdate(PX_Tetrimino* tetrimino, PX_Scene* scene){
     // Are we static?
     if(tetrimino->still)    {printf("STILL\n"); return;}
-
-    // Preserve
-    px_TPRESERVE(tetrimino);
 
     // Physics
     px_TFALL(tetrimino);
@@ -294,30 +313,14 @@ void px_TetriminoDraw(PX_Tetrimino* tetrimino, PX_Scene* scene){
 }
 void px_TetriminoMove(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y){
     // Moving the wanted tetrimino
-    // Getting the width
-    int width;
+    // Appropriate?
+    if(px_TOVEREDGE(tetrimino, scene, x, 0)) {return;}
 
-    // What's your type?
-    switch(tetrimino->type){
-    case 1:
-    case 2:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-        width = 3;                      break;
-    case 3:
-        width = 2;                      break;
-    }
+    // Moving
+    tetrimino->x += x;
 
-    // Can we move?
-    if((x < 0 && tetrimino->x + x + 1 > 0) || 
-    (x > 0 && tetrimino->x + width + x - 1 < GRIDX)){           // Moving Left and Right but, WITH boundries.
-        tetrimino->x += x;
-
-        // Playing a sound
-        px_SoundPlay("res/sounds/tetrimino/move.wav", 1);
-    }
+    // Playing a sound
+    px_SoundPlay("res/sounds/tetrimino/move.wav", 1);
 
     // Clearing cells on the side it was moving away from
     // If this doesn't happen, GLITCHES happen..
@@ -336,10 +339,10 @@ void px_TetriminoMove(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y){
         if((tetrimino->y - 1) * GRIDY + tetrimino->x > 0){
             for(int y = 0; y < 4; y++){
                 // Getting the point
-                int cellv = px_SceneGet(scene, tetrimino->x + width + 1, tetrimino->y + y);
+                int cellv = px_SceneGet(scene, tetrimino->x + tetrimino->width + 1, tetrimino->y + y);
             
                 if(cellv == tetrimino->type + 1){
-                    px_ScenePlot(scene, tetrimino->x + width + 1, tetrimino->y + y, 0);
+                    px_ScenePlot(scene, tetrimino->x + tetrimino->width + 1, tetrimino->y + y, 0);
                 }
             }
         }
@@ -423,9 +426,12 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
     // Just to buffer
     SDL_Delay(25);
 }
-void px_TetriminoRotate(PX_Tetrimino* tetrimino, int direction){
+void px_TetriminoRotate(PX_Tetrimino* tetrimino, PX_Scene* scene, int direction){
     // Dumb types
     if(tetrimino->type == 3)    {return;}
+
+    // Are we avalible to turn?
+    if(px_TOVEREDGE(tetrimino, scene, direction, 0)) {return;}
 
     // Rotating
     tetrimino->rotation += direction;

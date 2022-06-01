@@ -18,6 +18,7 @@
 #define FALLSLICE 120.0f/1000.0f
 
 // Variables
+bool finishedAnger = false;
 float ftime = 0;
 
 // Functions
@@ -39,11 +40,16 @@ void px_MACTIVATE(PX_Monster* monster){
     }
 }
 
-void px_MFALL(PX_Monster* monster){
+void px_MFALL(PX_Monster* monster, PX_Scene* scene){
+    // Grounded?
+    if(monster->grounded)   {return;}
+
+    // Falling
     if(ftime > FALLT){
         monster->y += 1;
         ftime = 0;
     }
+    // Counting
     else{
         ftime += deltatime * FALLSLICE;
     }
@@ -103,7 +109,46 @@ void px_MSTRIDE(PX_Monster* monster){
     monster->x += direction;
 
     // Sounds
-    px_SoundPlay("res/sounds/entities/monster_jump.wav", 2);
+    px_SoundPlay("res/sounds/entities/monster_walk.wav", 2);
+}
+void px_MKILL(PX_Monster* monster, PX_Scene* scene){
+    // What's our position in the grid?
+    int ccell = px_SceneGet(scene, monster->x, monster->y);
+
+    // Are we in something..
+    if(ccell == -1){
+        // Playing the sound
+        px_SoundPlay("res/sounds/entities/monster_kill.wav", 2);
+        monster->active = false;
+    }
+}
+void px_MGCHECK(PX_Monster* monster, PX_Scene* scene){
+    // Are we on the floor?
+    if(monster->y + 1 > GRIDY){
+        monster->grounded = true;
+        return;
+    }
+
+    // What's the tile below us?
+    int below = px_SceneGet(scene, monster->x, monster->y + 1);
+
+    // Is it ground?
+    monster->grounded = below != 0;
+}
+void px_MCORRUPT(PX_Monster* monster, PX_Scene* scene){
+    // Grounded?
+    if(!monster->grounded)  {return;}
+
+    // Corrupt when it's time
+    if(ftime > FALLT){
+        ftime = 0;
+        if(monster->y + 2 < GRIDY){
+            px_ScenePlot(scene, monster->x, monster->y + 1, 0);
+        }
+    }
+    else{
+        ftime += deltatime * FALLSLICE;
+    }
 }
 
 // --HEADER
@@ -112,9 +157,10 @@ PX_Monster px_MonsterCreate(SDL_Renderer* renderer){
     PX_Monster monster;
 
     // Setting variables
-    monster.active  = false;
-    monster.x       = 3;
-    monster.y       = 0;
+    monster.grounded    = false;
+    monster.active      = false;
+    monster.x           = 3;
+    monster.y           = 0;
 
     // Creating the texture
     monster_tex = px_TextureCreate(renderer, "res/sprites/monster.png");
@@ -127,11 +173,18 @@ void px_MonsterUpdate(PX_Monster* monster, PX_Scene* scene){
     // Active?
     if(!monster->active) {px_MACTIVATE(monster); return;}
 
+    // Checks
+    px_MGCHECK(monster, scene);
+
     // Physics
     px_MSTRIDE(monster);
-    px_MFALL(monster);
+    px_MFALL(monster, scene);
+
+    // Effects
+    px_MCORRUPT(monster, scene);
     
-    // The fun stuff
+    // Checks
+    px_MKILL(monster, scene);
 }
 void px_MosnterDraw(SDL_Renderer* renderer, PX_Scene* scene, PX_Monster* monster){
     // Active?

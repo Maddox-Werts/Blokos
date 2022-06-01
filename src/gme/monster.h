@@ -16,6 +16,7 @@
 // Structures
 typedef struct PX_Monster{
     int x; int y;
+    bool grounded;
     bool active;
 } PX_Monster;
 

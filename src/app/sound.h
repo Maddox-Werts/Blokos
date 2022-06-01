@@ -10,12 +10,13 @@
 #include <SDL2/SDL_mixer.h>
 
 // Variables
-Mix_Chunk* currentsound;
+Mix_Chunk* backgroundsound;
+Mix_Chunk* playersound;
+Mix_Chunk* entitysound;
 
 // Functions
 void px_SoundStart();
-void px_SoundSet(const char* file);
-void px_SoundPlay();
+void px_SoundPlay(const char* file, int type);
 
 // End definition
 #endif

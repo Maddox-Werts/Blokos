@@ -115,8 +115,7 @@ void px_SceneDraw(PX_Scene* scene, SDL_Renderer* renderer){
         // Were all the cells filled?
         if(cellsfilled >= GRIDX){
             // Playing the sound
-            px_SoundSet("res/sounds/clear.wav");
-            px_SoundPlay();
+            px_SoundPlay("res/sounds/clear.wav", 0);
 
             // Clearing rows
             for(int cy = y; cy > 0; cy--){

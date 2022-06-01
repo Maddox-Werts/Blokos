@@ -26,9 +26,22 @@ void px_SoundStart(){
         printf("Audio Systems started successfuly!\n");
     }
 }
-void px_SoundSet(const char* file){
+void px_SoundPlay(const char* file, int type){
+    // Holding
+    Mix_Chunk* chnk;
+
     // Freeing previous sound
-    Mix_FreeChunk(currentsound);
+    switch(type){
+    case 0:             // Background Sounds
+        Mix_FreeChunk(backgroundsound);
+        break;
+    case 1:             // Player Sounds
+        Mix_FreeChunk(playersound);
+        break;
+    case 2:             // Entity Sounds
+        Mix_FreeChunk(entitysound);
+        break;
+    }
 
     // Getting the audio file
     Mix_Chunk* tchunk = Mix_LoadWAV(file);
@@ -38,12 +51,40 @@ void px_SoundSet(const char* file){
     }
 
     // Setting the current sound
-    currentsound = tchunk;
-}
-void px_SoundPlay(){
-    if(!currentsound){
-        printf("The current sound does not exist!\n");
-        return;
+    switch(type){
+    case 0:             // Background Sounds
+
+        backgroundsound = tchunk;
+
+        // Playing the sound
+        if(!backgroundsound){
+            printf("The current sound does not exist!\n");
+            return;
+        }
+        Mix_PlayChannel(-1, backgroundsound, 0);
+
+        break;
+    case 1:             // Player Sounds
+        playersound = tchunk;
+
+        // Playing the sound
+        if(!playersound){
+            printf("The current sound does not exist!\n");
+            return;
+        }
+        Mix_PlayChannel(-1, playersound, 0);
+
+        break;
+    case 2:             // Entity Sounds
+        entitysound = tchunk;
+
+        // Playing the sound
+        if(!entitysound){
+            printf("The current sound does not exist!\n");
+            return;
+        }
+        Mix_PlayChannel(-1, entitysound, 0);
+
+        break;
     }
-    Mix_PlayChannel(-1, currentsound, 0);
 }

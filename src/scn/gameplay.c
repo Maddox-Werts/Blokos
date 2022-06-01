@@ -94,7 +94,7 @@ void blk_GameStart(SDL_Renderer* renderer){
     score_num_txt = px_TextCreate(renderer, "0");
 
     // Making entities
-    monster = px_MonsterCreate();
+    monster = px_MonsterCreate(renderer);
 }
 void blk_GameUpdate(){
     px_TetriminoUpdate(&tetrimino, &scene);
@@ -114,7 +114,7 @@ void blk_GameUpdate(){
     game_MoveTetrimino();
 
     // Updating Entities
-    px_MonsterUpdate(&monster);
+    px_MonsterUpdate(&monster, &scene);
 }
 void blk_GameDraw(SDL_Renderer* renderer){
     // World drawing and Scene drawing

@@ -38,8 +38,7 @@ void px_TBORDER(PX_Tetrimino* tetrimino, PX_Scene* scene){
         
         // Playing the sound
         if(!tetrimino->dropping){
-            px_SoundSet("res/sounds/drop.wav");
-            px_SoundPlay();
+            px_SoundPlay("res/sounds/drop.wav", 1);
         }
 
         tetrimino->still = true;
@@ -114,8 +113,7 @@ void px_TCHECKOTHER(PX_Tetrimino* tetrimino, PX_Scene* scene){
             // Playing the sound
             // IF we're not being dropped
             if(!tetrimino->dropping){
-                px_SoundSet("res/sounds/drop.wav");
-                px_SoundPlay();
+                px_SoundPlay("res/sounds/drop.wav", 1);
             }
 
             tetrimino->still = true;
@@ -263,8 +261,7 @@ void px_TetriminoMove(PX_Tetrimino* tetrimino, PX_Scene* scene, int x, int y){
         tetrimino->x += x;
 
         // Playing a sound
-        px_SoundSet("res/sounds/move.wav");
-        px_SoundPlay();
+        px_SoundPlay("res/sounds/move.wav", 1);
     }
 
     // Clearing cells on the side it was moving away from
@@ -351,8 +348,7 @@ void px_TetriminoDrop(PX_Tetrimino* tetrimino, PX_Scene* scene){
         // Did we escape?
         if(didDrop){
             // Playing the sound
-            px_SoundSet("res/sounds/slam.wav");
-            px_SoundPlay();
+            px_SoundPlay("res/sounds/slam.wav", 1);
 
             break;
         }

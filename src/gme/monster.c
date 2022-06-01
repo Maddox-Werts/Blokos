@@ -8,11 +8,13 @@
 #include <SDL2/SDL_image.h>
 // --HEADERS
 #include "../gme/scene.h"
+#include "../app/sound.h"
 #include "../app/dtime.h"
 #include "monster.h"
 
 // Constants
 #define FALLT 4
+#define RESPAWNT 40
 #define FALLSLICE 120.0f/1000.0f
 
 // Variables
@@ -23,11 +25,14 @@ float ftime = 0;
 void px_MACTIVATE(PX_Monster* monster){    
 
     // Adding to time
-    if(ftime > FALLT * 5){
+    if(ftime > RESPAWNT){
         ftime = 0;
         monster->active     = true;
         monster->x          = 3;
         monster->y          = 0;
+
+        // Making the sounds
+        px_SoundPlay("res/sounds/entities/monster_anger.wav", 2);
     }
     else{
         ftime += deltatime * FALLSLICE;
@@ -80,7 +85,7 @@ void px_MSTRIDE(PX_Monster* monster){
         direction = -1;
     }
     else if(40 < randec && randec < 60){
-        direction = 0;
+        return;
     }
     else if(60 < randec && randec < 100){
         direction = +1;
@@ -96,10 +101,13 @@ void px_MSTRIDE(PX_Monster* monster){
     }
 
     monster->x += direction;
+
+    // Sounds
+    px_SoundPlay("res/sounds/entities/monster_jump.wav", 2);
 }
 
 // --HEADER
-PX_Monster px_MonsterCreate(){
+PX_Monster px_MonsterCreate(SDL_Renderer* renderer){
     // Holding
     PX_Monster monster;
 
@@ -108,10 +116,13 @@ PX_Monster px_MonsterCreate(){
     monster.x       = 3;
     monster.y       = 0;
 
+    // Creating the texture
+    monster_tex = px_TextureCreate(renderer, "res/sprites/monster.png");
+
     // Returning monster
     return monster;
 }
-void px_MonsterUpdate(PX_Monster* monster){
+void px_MonsterUpdate(PX_Monster* monster, PX_Scene* scene){
 
     // Active?
     if(!monster->active) {px_MACTIVATE(monster); return;}
@@ -119,6 +130,8 @@ void px_MonsterUpdate(PX_Monster* monster){
     // Physics
     px_MSTRIDE(monster);
     px_MFALL(monster);
+    
+    // The fun stuff
 }
 void px_MosnterDraw(SDL_Renderer* renderer, PX_Scene* scene, PX_Monster* monster){
     // Active?
@@ -138,4 +151,7 @@ void px_MosnterDraw(SDL_Renderer* renderer, PX_Scene* scene, PX_Monster* monster
     // Set Color
     SDL_SetRenderDrawColor(renderer, 255,255,255, 1);
     SDL_RenderFillRect(renderer, &rect);
+
+    // Drawing texture
+    SDL_RenderCopy(renderer, monster_tex, NULL, &rect);
 }

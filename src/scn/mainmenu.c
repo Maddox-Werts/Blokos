@@ -5,6 +5,7 @@
 // --SDL
 #include <SDL2/SDL.h>
 // --HEADERS
+#include "../app/features.h"
 #include "../app/texture.h"
 #include "../app/dtime.h"
 #include "../app/text.h"
@@ -17,7 +18,7 @@ float stpos;
 // Functions
 // --HELPER
 void blk_MMSTART(){
-    stpos = stpos + 0.05f * ( 350 - stpos );
+    stpos = Lerp(stpos, 350, 0.05f);
 
     if(stpos <= 353){
         stpos = 350;

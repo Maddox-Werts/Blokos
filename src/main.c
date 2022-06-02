@@ -25,6 +25,7 @@
 // --SCREENS
 #include "scn/gameplay.h"
 #include "scn/mainmenu.h"
+#include "scn/splash.h"
 
 // Variables
 int cscrn;
@@ -40,9 +41,9 @@ void switchscrn(){
         rtt = true;
     }
     else if(!(ks[SDL_SCANCODE_SPACE]) && rtt){
-        cscrn = 1;
+        if(cscrn == 0) { blk_MMClean(); }
+        cscrn += 1;
         rtt = false;
-        blk_MMClean();
     }
 }
 
@@ -57,12 +58,13 @@ int main(int argc, char* argv[]){
     SDL_Renderer* renderer = px_RendererCreate(window.window);
 
     // Screen state
-    cscrn = 0; rtt = false;
+    cscrn = -1; rtt = false;
 
     // Starting the Sound System
     px_SoundStart();
 
     // Making the game screen
+    px_SSstart(renderer, window.width, window.height);
     blk_GameStart(renderer);
     blk_MMCreate(renderer);
 
@@ -79,6 +81,15 @@ int main(int argc, char* argv[]){
 
         // Switching between screens
         switch(cscrn){
+        case -1:
+            // Game code..
+            px_SSupdate();
+            if(px_ssready) {cscrn = 0;}
+            // Render code..
+            px_SSdraw(renderer, window.width, window.height);
+
+            break;
+
         case 0:
             // Game code..
             blk_MMUpdate();

@@ -6,8 +6,12 @@
 #include <SDL2/SDL.h>
 // --HEADERS
 #include "../app/texture.h"
+#include "../app/dtime.h"
 #include "../app/text.h"
 #include "mainmenu.h"
+
+// Variables
+float _time;
 
 // Functions
 // --BASE
@@ -20,9 +24,13 @@ void blk_MMCreate(SDL_Renderer* renderer){
 
     // Making the title thing
     start_txt = px_TextCreate(renderer, "Press [SPACE] to start.");
+
+    // Making the time
+    _time = 0;
 }
 void blk_MMUpdate(){
-
+    // Adding time
+    _time += (float)deltatime * 1.2f;
 }
 void blk_MMDraw(SDL_Renderer* renderer){
     // Color
@@ -31,7 +39,8 @@ void blk_MMDraw(SDL_Renderer* renderer){
     // Making the title card
     SDL_Rect titlecard;
 
-    titlecard.x = 100; titlecard.y = 10;
+    titlecard.x = 100 + (int)(cosf(_time / 200) * 10); 
+    titlecard.y = 10 + (int)(sinf(_time / 100) * 10);
     titlecard.w = 300; titlecard.h = 300;
 
     SDL_RenderFillRect(renderer, &titlecard);

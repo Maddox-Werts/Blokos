@@ -36,7 +36,7 @@ void switchscrn(){
     const Uint8* ks = SDL_GetKeyboardState(NULL);
 
     // If Space is pressed
-    if(ks[SDL_SCANCODE_SPACE]){
+    if(ks[SDL_SCANCODE_SPACE] && px_mcanstart){
         rtt = true;
     }
     else if(!(ks[SDL_SCANCODE_SPACE]) && rtt){

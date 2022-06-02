@@ -15,6 +15,7 @@
 // VARIABLES
 SDL_Texture* titletex;
 PX_Text start_txt;
+bool px_mcanstart;
 
 // Functions
 void blk_MMCreate(SDL_Renderer* renderer);

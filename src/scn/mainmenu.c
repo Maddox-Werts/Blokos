@@ -12,8 +12,19 @@
 
 // Variables
 float _time;
+float stpos;
 
 // Functions
+// --HELPER
+void blk_MMSTART(){
+    stpos = stpos + 0.05f * ( 350 - stpos );
+
+    if(stpos <= 353){
+        stpos = 350;
+        px_mcanstart = true;
+    }
+}
+
 // --BASE
 void blk_MMCreate(SDL_Renderer* renderer){
     // Init SDL2_IMG
@@ -27,10 +38,15 @@ void blk_MMCreate(SDL_Renderer* renderer){
 
     // Making the time
     _time = 0;
+    stpos = 600;
+    px_mcanstart = false;
 }
 void blk_MMUpdate(){
     // Adding time
     _time += (float)deltatime * 1.2f;
+
+    // Allowing the menu to transition
+    blk_MMSTART();
 }
 void blk_MMDraw(SDL_Renderer* renderer){
     // Color
@@ -47,7 +63,7 @@ void blk_MMDraw(SDL_Renderer* renderer){
     SDL_RenderCopy(renderer, titletex, NULL, &titlecard);
 
     // Making the start text
-    px_TextDraw(renderer, start_txt, 100, 350, 300, 50);
+    px_TextDraw(renderer, start_txt, 100, stpos, 300, 50);
 }
 void blk_MMClean(){
     SDL_FreeSurface(start_txt.surface);

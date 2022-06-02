@@ -84,10 +84,10 @@ int main(int argc, char* argv[]){
         case -1:
             // Game code..
             px_SSupdate();
-            if(px_ssready) {cscrn = 0;}
+            if(px_ssready) {cscrn = 0; px_SSclean();}
             // Render code..
             px_SSdraw(renderer, window.width, window.height);
-            px_SSclean();
+            
 
             break;
 

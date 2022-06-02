@@ -23,6 +23,7 @@ bool fading, playedding;
 // Functions
 void px_SSstart(SDL_Renderer* renderer, int width, int height){
     // Making a texture
+    splashtex = (SDL_Texture*)malloc(32 * sizeof(int));
     splashtex = px_TextureCreate(renderer, "res/sprites/primax.png");
     SDL_SetTextureBlendMode(splashtex, SDL_BLENDMODE_BLEND);
     
@@ -78,5 +79,6 @@ void px_SSdraw(SDL_Renderer* renderer, int width, int height){
     SDL_RenderCopy(renderer, splashtex, NULL, &rect);
 }
 void px_SSclean(){
-    
+    // Free All variables
+    free(splashtex);
 }

@@ -22,6 +22,7 @@
 // --BASE
 #include "app/dtime.h"
 #include "app/prefs.h"
+#include "app/saves.h"
 // --SCREENS
 #include "scn/gameplay.h"
 #include "scn/mainmenu.h"
@@ -52,6 +53,9 @@ int main(int argc, char* argv[]){
     // This is our starting point
     // Prefrences
     PX_PrefrenceResult prefs = px_ReadPrefs();
+
+    // Loading save game
+    PX_SaveGame saveGame = px_saveRead("res/saves/save.conf");
 
     // Creating a window
     PX_Window window = px_WindowCreate("BLOKOS", prefs.width, prefs.height);

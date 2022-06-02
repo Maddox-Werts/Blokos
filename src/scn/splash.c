@@ -18,6 +18,8 @@ int wid, hig;
 int spx,spy;
 int spf;
 
+float stillt;
+
 bool fading, playedding;
 
 // Functions
@@ -44,8 +46,14 @@ void px_SSupdate(){
     spy = Lerp(spy, hig / 2, 0.05f);
 
     // Are we ready?
-    if(abs(spy - (hig / 2)) <= 5) {fading = true;}  // Fade start
-    if(abs(spy - (hig / 2)) <= 15) {                // Play Ba-Ding
+    if(abs(spy - (hig / 2)) <= 5){
+        if(stillt >= 5.0f){
+            fading = true;
+        }
+        else{
+            stillt += deltatime * (120.0f/1000.0f);
+        }
+
         if(!playedding){
             px_SoundPlay("res/sounds/primaxding.wav", 0);
             playedding = true;

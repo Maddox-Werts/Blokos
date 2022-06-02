@@ -7,6 +7,7 @@
 #include <SDL2/SDL.h>
 // --HEADERS
 #include "gameplay.h"
+#include "../app/saves.h"
 #include "../gme/monster.h"
 
 // Variables
@@ -93,6 +94,9 @@ void blk_GameStart(SDL_Renderer* renderer){
     score_txt = px_TextCreate(renderer, "SCORE: ");
     score_num_txt = px_TextCreate(renderer, "0");
 
+    highscore_txt = px_TextCreate(renderer, "HIGH SCORE: ");
+    highscore_num_txt = px_TextCreate(renderer, "0");
+
     // Making entities
     monster = px_MonsterCreate(renderer);
 }
@@ -140,6 +144,7 @@ void blk_GameDraw(SDL_Renderer* renderer){
 
     px_TextDraw(renderer, score_txt, 300, 150, 112, 40);
     px_TextDraw(renderer, score_num_txt, 400, 150, (int)(score_num_txt.width * 1.5f), 40);
+    px_TextDraw
 
     // Drawing entities
     px_MosnterDraw(renderer, &scene, &monster);

@@ -77,3 +77,6 @@ void px_SSdraw(SDL_Renderer* renderer, int width, int height){
     SDL_RenderFillRect(renderer, &rect);
     SDL_RenderCopy(renderer, splashtex, NULL, &rect);
 }
+void px_SSclean(){
+    
+}

@@ -18,6 +18,7 @@ bool px_ssready;
 void px_SSstart(SDL_Renderer* renderer, int width, int height);
 void px_SSupdate();
 void px_SSdraw(SDL_Renderer* renderer, int width, int height);
+void px_SSclean();
 
 // End definition
 #endif

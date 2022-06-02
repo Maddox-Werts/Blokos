@@ -87,6 +87,7 @@ int main(int argc, char* argv[]){
             if(px_ssready) {cscrn = 0;}
             // Render code..
             px_SSdraw(renderer, window.width, window.height);
+            px_SSclean();
 
             break;
 

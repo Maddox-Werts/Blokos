@@ -102,12 +102,12 @@ void px_SceneDraw(PX_Scene* scene, SDL_Renderer* renderer){
                 // Setting color
                 // What type of cell is it?
                 if(scene->matricies[y*GRIDX+x] == -1){
-                    SDL_SetTextureColorMod(celltex, 200,200,200);
+                    SDL_SetTextureColorMod(celltex, 175,200,175);
                     cellsfilled += 1;
                     filled = true;
                 }
                 else if(scene->matricies[y*GRIDX+x] != 0){
-                    SDL_SetTextureColorMod(celltex, 255,255,255);
+                    SDL_SetTextureColorMod(celltex, 225,225,255);
                     filled = true;
                 }
                 else{

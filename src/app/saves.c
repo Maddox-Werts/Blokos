@@ -22,7 +22,7 @@ PX_SaveGame px_saveRead(const char* fileName){
 
     // Was the file opened?
     if(savefile == NULL){
-        printf("Failed to open %s.\n", savefile);
+        printf("Failed to open %s.\n", fileName);
     }
     else{
         printf("Successfully read.\n");
@@ -72,6 +72,69 @@ PX_SaveGame px_saveRead(const char* fileName){
     // Returning
     return saveGame;
 }
-void px_saveWrite(const char* filename, const char* value){
-    
+void px_saveWrite(const char* filename, const char* name, const char* value){
+    // What's the path?
+    char* path = (char*)malloc(5 * sizeof(int));
+    strcpy(path, "res/saves/");
+    strcat(path, filename);
+
+    char* tpath = (char*)malloc(5 * sizeof(int));
+    strcpy(tpath, path);
+    strcat(tpath, ".tmp");
+
+    // Getting the file
+    FILE* savefile = fopen(path, "r");
+    FILE* newfile = fopen(tpath, "w");
+
+    // Variables
+    char line[512];
+
+    // For each of the lines
+    while(fgets(line, 512, savefile) != NULL){
+        // Is the line a comment?
+        if(line[0] != '#'){
+            // Check the arguments
+            char* saveargs = (char*)malloc(4 * sizeof(int));
+            strcpy(saveargs, strtok(line, "="));
+
+            // Is this what we want?
+            // Writing!
+            char* result = (char*)malloc(4 * sizeof(int));
+
+            strcpy(result, saveargs);
+            strcat(result, "=");
+            if(strcmp(saveargs, name)){
+                strcat(result, value);
+            }
+            else{
+                strcpy(saveargs, strtok(NULL, "="));
+                strcat(result, saveargs);
+            }
+
+            // Override line
+            fputs(result, newfile);
+            fputc('\n', newfile);
+
+            // Cleanup
+            free(result);
+
+            // Cleanup
+            free(saveargs);
+        }
+        else{
+            fputs(line, newfile);
+        }
+    }
+
+    // Closing files
+    fclose(savefile);
+    fclose(newfile);
+
+    // Remove the original
+    remove(path);
+
+    // Override
+    rename(tpath, path);
+
+    return;
 }

@@ -15,7 +15,7 @@ typedef struct PX_SaveGame{
 
 // Functions
 PX_SaveGame px_saveRead(const char* fileName);
-void px_saveWrite(const char* filename, const char* value);
+void px_saveWrite(const char* filename, const char* name, const char* value);
 
 // End definition
 #endif

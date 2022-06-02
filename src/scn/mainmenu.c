@@ -32,6 +32,7 @@ void blk_MMCreate(SDL_Renderer* renderer){
     IMG_Init(IMG_INIT_PNG);
 
     // Creating textures and what not
+    titletex = (SDL_Texture*)malloc(16 * sizeof(int));
     titletex = px_TextureCreate(renderer, "res/sprites/title.png");
 
     // Making the title thing
@@ -68,4 +69,5 @@ void blk_MMDraw(SDL_Renderer* renderer){
 }
 void blk_MMClean(){
     SDL_FreeSurface(start_txt.surface);
+    free(titletex);
 }

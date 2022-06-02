@@ -157,6 +157,11 @@ void px_TCHECKOTHER(PX_Tetrimino* tetrimino, PX_Scene* scene){
         if(!tetrimino->dropping){
             px_SoundPlay("res/sounds/tetrimino/drop.wav", 1);
         }
+
+        // Are we gamed over?
+        if(tetrimino->y <= 2){
+            tet_gameOver = true;
+        }
     }
 }
 
@@ -174,6 +179,8 @@ PX_Tetrimino px_TetriminoCreate(){
 
     tetrimino.still         = false;
     tetrimino.dropping      = false;
+
+    tet_gameOver            = false;
 
     // Giving back tetrimino
     return tetrimino;

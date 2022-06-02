@@ -97,6 +97,13 @@ void blk_GameStart(SDL_Renderer* renderer){
     monster = px_MonsterCreate(renderer);
 }
 void blk_GameUpdate(){
+    // Game over..
+    if(gameOver){
+        // Doing an effect
+
+        return;
+    }
+
     px_TetriminoUpdate(&tetrimino, &scene);
         if(tetrimino.still){
         /*
@@ -112,6 +119,13 @@ void blk_GameUpdate(){
 
     // Moving the tetrimino
     game_MoveTetrimino();
+
+    // Are we gamed over
+    if(tet_gameOver){
+        gameOver = true;
+
+        px_SoundPlay("res/sounds/die.wav", 0);
+    }
 
     // Updating Entities
     px_MonsterUpdate(&monster, &scene);

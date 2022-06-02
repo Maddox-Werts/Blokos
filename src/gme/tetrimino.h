@@ -27,6 +27,9 @@ typedef struct PX_Tetrimino{
     float ft;
 } PX_Tetrimino;
 
+// Variables
+bool tet_gameOver;
+
 // Functions
 PX_Tetrimino px_TetriminoCreate();
 void px_TetriminoDelete(PX_Tetrimino* tetrimino);

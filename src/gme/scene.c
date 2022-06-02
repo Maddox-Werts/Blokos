@@ -9,8 +9,13 @@
 #include "scene.h"
 #include "../app/texture.h"
 #include "../app/sound.h"
+#include "../app/dtime.h"
 
 // Functions
+
+// Variables
+int redRows = 0;
+float redTime = 0;
 
 // --HEADER
 PX_Scene px_SceneCreate(SDL_Renderer* renderer, int width, int height){
@@ -40,9 +45,12 @@ PX_Scene px_SceneCreate(SDL_Renderer* renderer, int width, int height){
 
     // Setting something Important
     gameOver = false;
+    redRows = 0;
+    redTime = 0;
 
     // Loading textures
     celltex = px_TextureCreate(renderer, "res/sprites/cell.png");
+    SDL_SetTextureBlendMode(celltex, SDL_BLENDMODE_BLEND);
 
     return scene;
 }
@@ -67,20 +75,45 @@ void px_SceneDraw(PX_Scene* scene, SDL_Renderer* renderer){
             // Helpers
             bool filled;
 
-            // Setting color
-            // What type of cell is it?
-            if(scene->matricies[y*GRIDX+x] == -1){
-                SDL_SetRenderDrawColor(renderer, 84,85,160, 1);
-                cellsfilled += 1;
-                filled = true;
-            }
-            else if(scene->matricies[y*GRIDX+x] != 0){
-                SDL_SetRenderDrawColor(renderer, 134,135,200, 1);
-                filled = true;
+            // Color
+            SDL_SetRenderDrawColor(renderer, 134,134,134, 1);
+
+            // Game over?
+            if(gameOver){
+                if(y <= redRows){
+                    filled = true;
+                    SDL_SetRenderDrawColor(renderer, 255, 55, 55, 1);
+                    SDL_SetTextureColorMod(celltex, 255, 55, 55);
+                }
+                else{
+                    SDL_SetRenderDrawColor(renderer, 134,134,134, 1);
+                    SDL_SetTextureColorMod(celltex, 134, 134, 134);
+                }
+
+                if(redTime >= 240.0f){
+                    redTime = 0;
+                    redRows += 1;
+                }
+                else{
+                    redTime += deltatime * (120.0f/1000.0f);
+                }
             }
             else{
-                SDL_SetRenderDrawColor(renderer, 100,100,100, 1);
-                filled = false;
+                // Setting color
+                // What type of cell is it?
+                if(scene->matricies[y*GRIDX+x] == -1){
+                    SDL_SetTextureColorMod(celltex, 200,200,200);
+                    cellsfilled += 1;
+                    filled = true;
+                }
+                else if(scene->matricies[y*GRIDX+x] != 0){
+                    SDL_SetTextureColorMod(celltex, 255,255,255);
+                    filled = true;
+                }
+                else{
+                    SDL_SetTextureColorMod(celltex, 100,100,100);
+                    filled = false;
+                }
             }
 
             // Getting the size difference from window

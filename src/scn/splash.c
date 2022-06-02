@@ -53,7 +53,6 @@ void px_SSupdate(){
     }
     if(fading){                                     // Fading
         spf = Lerp(spf, 0, 0.02f * deltatime);
-        printf("Alpha: %i\n", spf);
         if(spf <= 3) {px_ssready = true;}
     }
 }

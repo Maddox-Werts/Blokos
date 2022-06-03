@@ -172,7 +172,7 @@ PX_Tetrimino px_TetriminoCreate(){
 
     // Assigning Variables
     tetrimino.x             = 3;
-    tetrimino.y             = 0;
+    tetrimino.y             = 1;
     tetrimino.width         = 0;
     tetrimino.ft            = 0;
     tetrimino.type          = 1;

@@ -5,7 +5,7 @@
 LIBS = -lsdl2main -lsdl2_ttf -lsdl2_image -lsdl2_mixer -lsdl2
 
 # COMPILING
-all: CLS compile link install clean run
+all: CLS compile link install clean
 
 CLS:
 	clear

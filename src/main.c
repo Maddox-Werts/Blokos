@@ -69,8 +69,8 @@ int main(int argc, char* argv[]){
 
     // Making the game screen
     px_SSstart(renderer, window.width, window.height);
-    blk_GameStart(renderer, &saveGame);
     blk_MMCreate(renderer);
+    blk_GameStart(renderer, &saveGame);
 
     // Game Loop
     while(window.opened){

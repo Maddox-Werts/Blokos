@@ -155,7 +155,7 @@ void blk_GameDraw(SDL_Renderer* renderer){
     px_TextDraw(renderer, score_txt, 300, 150, 112, 40);
     px_TextDraw(renderer, score_num_txt, 400, 150, (int)(score_num_txt.width * 1.5f), 40);
     px_TextDraw(renderer, highscore_txt, 300, 200, 112, 40);
-    px_TextDraw(renderer, highscore_num_txt, 400, 200, (int)(score_num_txt.width * 1.5f), 40);
+    px_TextDraw(renderer, highscore_num_txt, 400, 200, (int)(highscore_num_txt.width * 1.5f), 40);
 
     // Drawing entities
     px_MosnterDraw(renderer, &scene, &monster);

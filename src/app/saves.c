@@ -33,7 +33,7 @@ PX_SaveGame px_saveRead(const char* fileName){
         // Checking if it's a comment
         if(!(line[0] == '#')){
             // Getting the following arguments
-            char* saveargs = (char*)malloc(16 * sizeof(int));
+            char* saveargs = (char*)malloc(4 * sizeof(int));
 
             // Split the line
             strcpy(saveargs, strtok(line, "="));
@@ -43,25 +43,22 @@ PX_SaveGame px_saveRead(const char* fileName){
             char* savevalue;
 
             // What are our arguments?
-            while(saveargs != NULL){
-                // What was the name
-                if(savename == NULL){
-                    savename = saveargs;
-                }
-                else{
-                    savevalue = saveargs;
-                }
+            savename = saveargs;
 
-                // Next argument
-                saveargs = strtok(NULL, "=");
-            }
+            saveargs = strtok(NULL, "=");
+
+            savevalue = saveargs;
+
+            printf("Loaded info:\n  Name: %s\n  Value: %s\n\n", savename, savevalue);
 
             // What was the name?
             if(strcmp(savename, "high_score") == 0){
                 saveGame.high_score = atoi(savevalue);
+                printf("Saved high score as: %i\n", saveGame.high_score);
             }
             if(strcmp(savename, "time_alive") == 0){
                 saveGame.time_alive = atoi(savevalue);
+                printf("Saved time alive as: %i\n", saveGame.time_alive);
             }
         }
     }

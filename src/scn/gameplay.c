@@ -12,6 +12,7 @@
 
 // Variables
 PX_Monster monster;
+bool didWrite = false;
 
 // Functions
 // --HELPER
@@ -109,10 +110,17 @@ void blk_GameUpdate(PX_SaveGame* savegame){
     if(gameOver){
         // Doing an effect
         // Saving the score
-        if(scene.score > savegame->high_score){
+        if(scene.score > savegame->high_score && !didWrite){
+            printf("Rewrighting high score from %i to %i!\n", savegame->high_score, scene.score);
+
             char scoreval[16];
             sprintf(scoreval, "%d", scene.score);
-            px_saveWrite("res/saves/save.conf", "high_score", scoreval);
+
+            printf("Score value: %s\n", scoreval);
+
+            px_saveWrite("save.conf", "high_score", scoreval);
+
+            didWrite = true;
         }
 
         return;

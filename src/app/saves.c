@@ -33,10 +33,12 @@ PX_SaveGame px_saveRead(const char* fileName){
         // Checking if it's a comment
         if(!(line[0] == '#')){
             // Getting the following arguments
-            char* saveargs = (char*)malloc(4 * sizeof(int));
+            //char* saveargs = (char*)malloc(4 * sizeof(int));
+            char* saveargs;
 
             // Split the line
-            strcpy(saveargs, strtok(line, "="));
+            //strcpy(saveargs, line);
+            saveargs = strtok(line, "=");
 
             // Temporary Variables
             char* savename;
@@ -70,6 +72,9 @@ PX_SaveGame px_saveRead(const char* fileName){
     return saveGame;
 }
 void px_saveWrite(const char* filename, const char* name, const char* value){
+    // DEBUG
+    printf("Writing to saves..\n");
+
     // What's the path?
     char* path = (char*)malloc(5 * sizeof(int));
     strcpy(path, "res/saves/");
@@ -79,9 +84,17 @@ void px_saveWrite(const char* filename, const char* name, const char* value){
     strcpy(tpath, path);
     strcat(tpath, ".tmp");
 
+    printf("Paths: %s, %s\n", path, tpath);
+
+    // DEBUG
+    printf("Got both save paths..\n");
+
     // Getting the file
     FILE* savefile = fopen(path, "r");
     FILE* newfile = fopen(tpath, "w");
+
+    // DEBUG
+    printf("Loaded both files.\nOG: %i\n NEW: %i\n", (int)(savefile == NULL), (int)(newfile == NULL));
 
     // Variables
     char line[512];
@@ -100,13 +113,16 @@ void px_saveWrite(const char* filename, const char* name, const char* value){
 
             strcpy(result, saveargs);
             strcat(result, "=");
-            if(strcmp(saveargs, name)){
+            if(strcmp(saveargs, name) == 0){
                 strcat(result, value);
             }
             else{
-                strcpy(saveargs, strtok(NULL, "="));
-                strcat(result, saveargs);
+                strcpy(result, line);
+                strcat(result, "=");
+                strcat(result, strtok(NULL, "\n"));
             }
+
+            printf("Result: %s\n", result);
 
             // Override line
             fputs(result, newfile);
@@ -119,6 +135,7 @@ void px_saveWrite(const char* filename, const char* name, const char* value){
             free(saveargs);
         }
         else{
+            // Write to file
             fputs(line, newfile);
         }
     }

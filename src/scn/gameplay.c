@@ -85,7 +85,7 @@ void game_UpdateScore(SDL_Renderer* renderer){
 }
 
 // --HEADER
-void blk_GameStart(SDL_Renderer* renderer){
+void blk_GameStart(SDL_Renderer* renderer, PX_SaveGame* savegame){
     // Making a scene
     scene = px_SceneCreate(renderer, 300, 512);
     tetrimino = px_TetriminoCreate();
@@ -95,15 +95,25 @@ void blk_GameStart(SDL_Renderer* renderer){
     score_num_txt = px_TextCreate(renderer, "0");
 
     highscore_txt = px_TextCreate(renderer, "HIGH SCORE: ");
-    highscore_num_txt = px_TextCreate(renderer, "0");
+
+    // Our high score!
+    char high_score[16];
+    sprintf(high_score, "%d", savegame->high_score);
+    highscore_num_txt = px_TextCreate(renderer, high_score);
 
     // Making entities
     monster = px_MonsterCreate(renderer);
 }
-void blk_GameUpdate(){
+void blk_GameUpdate(PX_SaveGame* savegame){
     // Game over..
     if(gameOver){
         // Doing an effect
+        // Saving the score
+        if(scene.score > savegame->high_score){
+            char scoreval[16];
+            sprintf(scoreval, "%d", scene.score);
+            px_saveWrite("res/saves/save.conf", "high_score", scoreval);
+        }
 
         return;
     }
@@ -144,7 +154,8 @@ void blk_GameDraw(SDL_Renderer* renderer){
 
     px_TextDraw(renderer, score_txt, 300, 150, 112, 40);
     px_TextDraw(renderer, score_num_txt, 400, 150, (int)(score_num_txt.width * 1.5f), 40);
-    px_TextDraw
+    px_TextDraw(renderer, highscore_txt, 300, 200, 112, 40);
+    px_TextDraw(renderer, highscore_num_txt, 400, 200, (int)(score_num_txt.width * 1.5f), 40);
 
     // Drawing entities
     px_MosnterDraw(renderer, &scene, &monster);

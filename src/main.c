@@ -69,7 +69,7 @@ int main(int argc, char* argv[]){
 
     // Making the game screen
     px_SSstart(renderer, window.width, window.height);
-    blk_GameStart(renderer);
+    blk_GameStart(renderer, &saveGame);
     blk_MMCreate(renderer);
 
     // Game Loop
@@ -105,7 +105,7 @@ int main(int argc, char* argv[]){
             break;
         case 1:
             // Game code..
-            blk_GameUpdate();
+            blk_GameUpdate(&saveGame);
             // Render code..
             blk_GameDraw(renderer);
             // End screen
